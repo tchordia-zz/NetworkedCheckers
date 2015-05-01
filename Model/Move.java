@@ -72,10 +72,11 @@ public class Move
     
     public boolean isJump()
     {
-        if(Math.abs(startCol - endCol) > 1 && Math.abs(startRow - endRow > 1) )
+        if(Math.abs(startCol - endCol) > 1 && Math.abs(startRow - endRow) > 1 )
         {
             return true;
         }
+        return false;
     }
     
     
