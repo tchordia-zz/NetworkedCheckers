@@ -70,6 +70,14 @@ public class Move
         return isRed;
     }
     
+    public boolean isJump()
+    {
+        if(Math.abs(startCol - endCol) > 1 && Math.abs(startRow - endRow > 1) )
+        {
+            return true;
+        }
+    }
+    
     
    
     
