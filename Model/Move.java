@@ -59,20 +59,29 @@ public class Move
     }
 
     /**
-     * @return Returns the isRed.
+     * @return Returns the color of the player.
      */
     public Player getPlayer()
     {
         return owner;
     }
+    
+    
+    /**
+     * @return Returns the isRed.
+     */
     public boolean isRed()
     {
         return isRed;
     }
     
+    
+    /**
+     * @return Returns if jump is valid.
+     */
     public boolean isJump()
     {
-        if(Math.abs(startCol - endCol) > 1 && Math.abs(startRow - endRow > 1) )
+        if(Math.abs(startCol - endCol) >= 1 && Math.abs(startRow - endRow >= 1) )
         {
             return true;
         }

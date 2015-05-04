@@ -2,6 +2,7 @@ package Model;
 
 import java.util.Stack;
 
+
 public class CheckerBoard
 {
     char[][] board;
@@ -22,27 +23,29 @@ public class CheckerBoard
 
     private Stack<Move> moves;
 
+
     public CheckerBoard()
     {
-        char[][] a = {  { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
-                        { 'b', '.', 'b', '.', 'b', '.', 'b', '.' },
-                        { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
-                        { ' ', '.', ' ', '.', ' ', '.', ' ', '.' },
-                        { '.', ' ', '.', ' ', '.', ' ', '.', ' ' },
-                        { 'r', '.', 'r', '.', 'r', '.', 'r', '.' },
-                        { '.', 'r', '.', 'r', '.', 'r', '.', 'r' },
-                        { 'r', '.', 'r', '.', 'r', '.', 'r', '.' } };
+        char[][] a = { { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+                       { 'b', '.', 'b', '.', 'b', '.', 'b', '.' },
+                       { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+                       { ' ', '.', ' ', '.', ' ', '.', ' ', '.' },
+                       { '.', ' ', '.', ' ', '.', ' ', '.', ' ' },
+                       { 'r', '.', 'r', '.', 'r', '.', 'r', '.' },
+                       { '.', 'r', '.', 'r', '.', 'r', '.', 'r' },
+                       { 'r', '.', 'r', '.', 'r', '.', 'r', '.' } };
         board = a;
         isRedTurn = true;
     }
 
 
-   
-
-
     public boolean isLegal( Move m )
     {
-        return true; // TODO FIX
+        if ( m == " " )
+        {
+            return true;
+        }
+        return false;
     }
 
 
@@ -50,9 +53,9 @@ public class CheckerBoard
     {
         if ( !isLegal( m ) )
         {
-           return false;
+            return false;
         }
-        //TODO MAKE MOVE PROCEDURE
+        // TODO MAKE MOVE PROCEDURE
         return true;
     }
 
