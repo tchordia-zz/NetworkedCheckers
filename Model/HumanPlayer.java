@@ -13,5 +13,13 @@ public class HumanPlayer extends Player
         
       
     }
+   
+    @Override
+    public void doMove()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+   
 
 }
