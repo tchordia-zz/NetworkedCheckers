@@ -2,11 +2,12 @@ package Model;
 
 public abstract class Player implements MoveListener
 {
-  
 
     private String username;
 
     private boolean isRed;
+
+    private boolean isMyTurn;
 
     Game currentGame;
 
@@ -14,8 +15,9 @@ public abstract class Player implements MoveListener
     public Player( String username )
     {
         this.username = username;
-        
+
     }
+
 
     public boolean isRed()
     {
@@ -23,11 +25,25 @@ public abstract class Player implements MoveListener
     }
 
 
-    public void newGame( Game g , boolean isRed)
+    public void newGame( Game g, boolean isRed )
     {
         currentGame = g;
         this.isRed = isRed;
+
+        isMyTurn = isRed;
+        if(isMyTurn)
+        {
+            moveHappened(null);
+        }
     }
+    @Override
+    public void gameOver()
+    {
+       currentGame = null;
+       
+        
+    }
+    public abstract void doMove();
 
 
     public Game getGame()
@@ -36,5 +52,3 @@ public abstract class Player implements MoveListener
     }
 
 }
-
-
