@@ -25,6 +25,10 @@ public class Move
         
         this.isRed = isRed;
     }
+    public static Move firstMove()
+    {
+        return new Move(0,0,0,0, !Game.RED);
+    }
 
     /**
      * @return Returns the startRow.

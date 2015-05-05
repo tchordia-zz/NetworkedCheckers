@@ -14,12 +14,11 @@ public class Game
 
     public static final boolean RED = true;
 
-    List<MoveListener> listeners = new LinkedList<MoveListener>();
 
 
     public Game( Player redP, Player blackP )
     {
-        board = new CheckerBoard(this);
+        board = new CheckerBoard( this );
         red = redP;
         red.newGame( this, RED );
         black = blackP;
@@ -31,55 +30,19 @@ public class Game
     public boolean doMove( Move move )
     {
 
-        if ( !board.isLegal( move ) )
-        {
-            return false;
-        }
-        // TODO: board.doMove();
-        //
-        if ( move.isRed() )
-        {
-            red.doMove();
-        }
-        else
-        {
-            black.doMove();
-        }
-        if ( board.isGameOver() )
-        {
-            gameOver();
-        }
-        else
-            informListeners( move );
-
-        return true;
+        return board.doMove( move );
     }
 
 
     public void addMoveListener( MoveListener m )
     {
-        listeners.add( m );
+        board.addMoveListener( m );
     }
 
-
-    private void informListeners( Move m )
+    public boolean isRedTurn()
     {
-        for ( MoveListener a : listeners )
-        {
-            a.moveHappened( m );
-        }
+        return board.isRedTurn();
     }
-
-
-    private void gameOver()
-    {
-        for ( MoveListener a : listeners )
-        {
-            a.gameOver();
-        }
-    }
-
-
     public CheckerBoard getBoard()
     {
         return board;

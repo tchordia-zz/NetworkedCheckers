@@ -1,12 +1,21 @@
 package Model;
 
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 
 public class CheckerBoard
 {
     char[][] board;
+
+    HashSet<Point> redPieces = new HashSet<Point>();
+
+    HashSet<Point> blackPieces = new HashSet<Point>();
 
     private boolean isRedTurn = true;
 
@@ -22,14 +31,10 @@ public class CheckerBoard
 
     public static final char BLACK_KING = 'B';
 
-    private int numRed;
+    List<MoveListener> listeners = new LinkedList<MoveListener>();
+    
 
-    private int numRedKings;
-
-    private int numBlack;
-
-    private int numBlackKings;
-
+   
     private Stack<Move> moves;
 
     private Game game;
@@ -47,34 +52,54 @@ public class CheckerBoard
             { 'r', '.', 'r', '.', 'r', '.', 'r', '.' } };
         board = a;
         isRedTurn = true;
-        numRed = 12;
-        numBlack = 12;
-        numRedKings = 0;
-        numBlackKings = 0;
+        
+       
         this.game = game;
+        initPieceList();
+        informListeners(Move.firstMove());
+    }
+
+    public int getNumRed()
+    {
+        return redPieces.size();
+        
+    }
+    public int getNumBlack()
+    {
+        return blackPieces.size();
+    }
+
+    private void initPieceList()
+    {
+        for ( int row = 0; row < board.length; row++ )
+        {
+            for ( int col = 0; col < board[0].length; col++ )
+            {
+                if ( board[row][col] == 'r' )
+                {
+                    redPieces.add( new Point( row, col ) );
+                }
+                else if ( board[row][col] == 'b' )
+                {
+                    blackPieces.add( new Point( row, col ) );
+                }
+
+            }
+        }
     }
 
 
-    protected boolean isGameOver()
+    public boolean isGameOver()
     {
 
-        for ( int a = 0; a < board.length; a++ )
+        Set<Point> myList = isRedTurn?redPieces:blackPieces;
+        
+        for(Point loc:myList)
         {
-            for ( int b = 0; b < board[0].length; b++ )
-            {
-                char t = board[a][b];
-                if ( isRedTurn && ( t == 'r' || t == 'R' ) )
-                {
-                    if ( listOneStepMoves( a, b ).size() > 0 )
-                        return false;
-                }
-                else if ( !isRedTurn && ( t == 'b' || t == 'B' ) )
-                {
-                    if ( listOneStepMoves( a, b ).size() > 0 )
-                        return false;
-                }
-            }
+            
         }
+        
+        gameOver();
         return true;
     }
 
@@ -228,6 +253,10 @@ public class CheckerBoard
 
     public boolean isLegal( Move m )
     {
+        int sr = m.getStartRow();
+        int sc = m.getStartCol();
+        int er = m.getEndRow();
+        int ec = m.getEndCol();
         if ( !inBounds( m.getStartRow(), m.getStartCol() )
             || !inBounds( m.getEndRow(), m.getEndCol() ) )
             return false;
@@ -243,6 +272,13 @@ public class CheckerBoard
         {
             return false;
         }
+        if ( m.isKingMove() )
+        {
+            if ( !isKing( sr, sc ) )
+            {
+                return false;
+            }
+        }
         if ( m.isJump() )
         {
             if ( !Character.isLetter( board[( m.getEndRow() + m.getStartRow() ) / 2][( m.getEndCol() + m.getStartCol() ) / 2] ) )
@@ -257,8 +293,63 @@ public class CheckerBoard
             }
 
         }
-        // TODO: if m is a simple move and a jump move is possible, return false
+        if ( m.isSimpleMove() && areJumps( m.isRed() ) )
+        {
+            return false;
+        }
         return true;
+    }
+
+
+    private boolean areJumps( boolean isRed )
+    {
+
+        Set<Point> temp = isRed ? redPieces : blackPieces; // select
+                                                           // either list
+                                                           // of black
+                                                           // pieces or
+                                                           // red pieces
+        char myLet = isRed ? 'r' : 'b'; // if isRed, char = 'r' else char = 'b'
+        char oLet = isRed ? 'b' : 'r'; // olet is the other char
+        int row;
+        int col;
+        for ( Point loc : temp ) // Iterate through list of pieces, check if
+                                 // they can jump
+        {
+            row = loc.x;
+            col = loc.y;
+
+            int a = isRed ? -1 : 1;
+            for ( int b = -1; b < 2; b += 2 )
+            {
+                if ( board[row + a][col + b] == oLet
+                    && board[row + 2 * a][col + 2 * b] == ' ' )
+                {
+                    return true;
+                }
+            }
+
+            if ( Character.isUpperCase( board[row][col] ) )
+            {
+                a = -a;
+                for ( int b = -1; b < 2; b += 2 )
+                {
+                    if ( board[row + a][col + b] == oLet
+                        && board[row + 2 * a][col + 2 * b] == ' ' )
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    private boolean isKing( int row, int col )
+    {
+        return Character.isUpperCase( board[row][col] );
     }
 
 
@@ -271,12 +362,63 @@ public class CheckerBoard
 
     public boolean doMove( Move m )
     {
+        int sr = m.getStartRow();
+        int sc = m.getStartCol();
+        int er = m.getEndRow();
+        int ec = m.getEndCol();
+        Set<Point> myset = m.isRed() ? redPieces : blackPieces;
+
+        Set<Point> oset = m.isRed() ? blackPieces : redPieces;
+
         if ( !isLegal( m ) )
         {
             return false;
         }
-        // TODO MAKE MOVE PROCEDURE
+        char a = board[m.getStartRow()][m.getStartCol()];
+        board[m.getStartRow()][m.getStartCol()] = ' ';
+        board[m.getEndRow()][m.getEndCol()] = a;
+        myset.remove( new Point( sr, sc ) );
+        myset.add( new Point( er, ec ) );
+
+        if ( m.isJump() )
+        {
+            board[( sr + er ) / 2][( sc + ec ) / 2] = ' ';
+            oset.remove( new Point( ( sr + er ) / 2, ( sc + ec ) / 2 ) );
+
+        }
+
+        if ( er == 0 || er == board.length ) // if the move ends in the end row,
+                                             // king the piece
+        {
+            board[er][ec] = Character.toUpperCase( board[er][ec] );
+           
+        }
+        isRedTurn = !isRedTurn;
+        moves.push( m );    
         return true;
     }
-
+    public void addMoveListener( MoveListener m )
+    {
+        listeners.add( m );
+    }
+    
+    private void gameOver()
+    {
+        for ( MoveListener a : listeners )
+        {
+            a.gameOver();
+        }
+    }
+    
+    private void informListeners( Move m )
+    {
+        for ( MoveListener a : listeners )
+        {
+            a.moveHappened( m );
+        }
+    }
+    public boolean isRedTurn()
+    {
+        return isRedTurn;
+    }
 }
