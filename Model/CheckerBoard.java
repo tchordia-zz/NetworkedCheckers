@@ -228,7 +228,6 @@ public class CheckerBoard
 
     public boolean isLegal( Move m )
     {
-
         if ( !inBounds( m.getStartRow(), m.getStartCol() )
             || !inBounds( m.getEndRow(), m.getEndCol() ) )
             return false;
@@ -266,6 +265,7 @@ public class CheckerBoard
     private boolean isRed( int row, int col )
     {
         return ( Character.isLetter( board[row][col] ) && Character.toLowerCase( board[row][col] ) == 'r' );
+
     }
 
 
