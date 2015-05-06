@@ -18,11 +18,19 @@ public class Game
 
     public Game( Player redP, Player blackP )
     {
-        board = new CheckerBoard( this );
         red = redP;
         red.newGame( this, RED );
-        black = blackP;
+      
+        black = blackP;  
         black.newGame( this, !RED );
+        
+        board = new CheckerBoard( this );
+        while(!board.isGameOver())
+        {
+            Player c = board.isRedTurn()?red:black;
+            c.doMove();
+        }
+   
 
     }
 
@@ -34,10 +42,7 @@ public class Game
     }
 
 
-    public void addMoveListener( MoveListener m )
-    {
-        board.addMoveListener( m );
-    }
+
 
     public boolean isRedTurn()
     {
@@ -48,11 +53,21 @@ public class Game
         return board;
     }
 
-
+    @Override
+    public String toString()
+    {
+        if(board == null)
+        {
+            System.out.println("WHAT");
+        }
+        return board.toString();
+    }
+    
     public static void main( String[] args )
     {
-        Player a = new HumanPlayer( "Bob" );
-        Player b = new HumanPlayer( "Sally" );
+       System.out.println("GELLO");
+        Player a = new TextHumanPlayer( "Bob" );
+        Player b = new TextHumanPlayer( "Sally" );
         Game game = new Game( a, b );
     }
 

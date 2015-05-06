@@ -1,6 +1,6 @@
 package Model;
 
-public abstract class Player implements MoveListener
+public abstract class Player 
 {
 
     private String username;
@@ -10,6 +10,11 @@ public abstract class Player implements MoveListener
     private boolean isMyTurn;
 
     Game currentGame;
+    
+    private int numWins = 0;
+    private int numLosses = 0;
+    private int numDraws = 0;
+    
 
 
     public Player( String username )
@@ -31,21 +36,25 @@ public abstract class Player implements MoveListener
         this.isRed = isRed;
 
         isMyTurn = isRed;
-        if(isMyTurn)
-        {
-            moveHappened(null);
-        }
+//        if(isMyTurn)
+//        {
+//            moveHappened(Move.firstMove());
+//        }
     }
-    @Override
-    public void gameOver()
+    public void gameOver(boolean isRedWinner)
     {
        currentGame = null;
-       
-        
+       if(isRedWinner == isRed)
+           numWins++;
+       else
+           numLosses++;
     }
     public abstract void doMove();
 
-
+    public boolean inGame()
+    {
+        return currentGame!=null;
+    }
     public Game getGame()
     {
         return currentGame;

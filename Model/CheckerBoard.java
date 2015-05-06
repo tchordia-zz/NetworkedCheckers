@@ -31,8 +31,7 @@ public class CheckerBoard
 
     public static final char BLACK_KING = 'B';
 
-    List<MoveListener> listeners = new LinkedList<MoveListener>();
-    
+   
 
    
     private Stack<Move> moves;
@@ -53,11 +52,14 @@ public class CheckerBoard
         board = a;
         isRedTurn = true;
         
-       
+        moves = new Stack<Move>();
         this.game = game;
         initPieceList();
-        informListeners(Move.firstMove());
+        System.out.println(this);
+        
+        
     }
+   
 
     public int getNumRed()
     {
@@ -89,17 +91,23 @@ public class CheckerBoard
     }
 
 
-    public boolean isGameOver()
+    boolean isGameOver()
     {
 
         Set<Point> myList = isRedTurn?redPieces:blackPieces;
-        
+        if(myList.isEmpty())
+        {
+            return true;
+        }
         for(Point loc:myList)
         {
-            
+            if (listSimpleMoves(loc.x, loc.y).size() != 0)
+            {
+              return false;  
+            }
         }
         
-        gameOver();
+        
         return true;
     }
 
@@ -262,18 +270,22 @@ public class CheckerBoard
             return false;
         if ( m.isRed() != isRed( m.getStartRow(), m.getStartCol() ) )
         {
+            System.out.println("not your piece");
             return false;
         }
         if ( !m.isSimpleMove() && !m.isJump() )
         {
+            System.out.println("Move must be a simple move or a jump");
             return false;
         }
         if ( ( board[m.getEndRow()][m.getEndCol()] != ' ' ) )
         {
+            System.out.println("End square occupied");
             return false;
         }
         if ( m.isKingMove() )
         {
+            System.out.println("not a king");
             if ( !isKing( sr, sc ) )
             {
                 return false;
@@ -283,12 +295,14 @@ public class CheckerBoard
         {
             if ( !Character.isLetter( board[( m.getEndRow() + m.getStartRow() ) / 2][( m.getEndCol() + m.getStartCol() ) / 2] ) )
             {
+                System.out.println("that square is empty!");
                 return false;
+                
             }
             if ( isRed( ( m.getEndRow() + m.getStartRow() ) / 2,
                 ( m.getEndCol() + m.getStartCol() ) / 2 ) == m.isRed() )
-                ;
             {
+                System.out.println("Can't capture own piece");
                 return false;
             }
 
@@ -322,10 +336,16 @@ public class CheckerBoard
             int a = isRed ? -1 : 1;
             for ( int b = -1; b < 2; b += 2 )
             {
+                try{
                 if ( board[row + a][col + b] == oLet
                     && board[row + 2 * a][col + 2 * b] == ' ' )
                 {
                     return true;
+                }
+                }
+                catch(ArrayIndexOutOfBoundsException e)
+                {
+                    
                 }
             }
 
@@ -372,6 +392,7 @@ public class CheckerBoard
 
         if ( !isLegal( m ) )
         {
+            System.out.println("illegal move");
             return false;
         }
         char a = board[m.getStartRow()][m.getStartCol()];
@@ -395,30 +416,31 @@ public class CheckerBoard
         }
         isRedTurn = !isRedTurn;
         moves.push( m );    
+        isGameOver();
+       
+        System.out.println(this);
         return true;
     }
-    public void addMoveListener( MoveListener m )
-    {
-        listeners.add( m );
-    }
+  
     
-    private void gameOver()
-    {
-        for ( MoveListener a : listeners )
-        {
-            a.gameOver();
-        }
-    }
-    
-    private void informListeners( Move m )
-    {
-        for ( MoveListener a : listeners )
-        {
-            a.moveHappened( m );
-        }
-    }
+   
     public boolean isRedTurn()
     {
         return isRedTurn;
+    }
+    @Override
+    public String toString()
+    {
+        String ret = "";
+        for(char[] a:board)
+        {
+            for(char b:a)
+            {
+                ret+= b;
+            }
+            ret+= '\n';
+        }
+        return ret;
+
     }
 }
