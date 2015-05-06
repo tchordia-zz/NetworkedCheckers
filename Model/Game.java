@@ -14,6 +14,10 @@ public class Game
 
 
 
+    /**
+     * @param redP the red player object
+     * @param blackP the black player object
+     */
     public Game( Player redP, Player blackP )
     {
         red = redP;
@@ -33,6 +37,11 @@ public class Game
     }
 
 
+    /**
+     * Execute the Checkerboard's 
+     * @param move
+     * @return
+     */
     public boolean doMove( Move move )
     {
 
