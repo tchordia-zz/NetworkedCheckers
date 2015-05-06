@@ -41,11 +41,14 @@ public class CheckerBoard
 
     public boolean isLegal( Move m )
     {
-        if ( m == " " )
+        int r = m.getEndRow();
+        int c = m.getEndCol();
+        if (board[r][c] == ' ')
         {
-            return true;
+            return true; 
         }
         return false;
+        
     }
 
 
