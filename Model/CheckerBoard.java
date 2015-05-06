@@ -9,6 +9,18 @@ import java.util.Set;
 import java.util.Stack;
 
 
+/**
+ * Class that represents a checkerboard. Implements the checkerboard as a 2d
+ * array of chars, with r representing red and b representing black. '.' is null
+ * space and ' ' is empty space. Capital letters are used for kings
+ *
+ * @author tchordia619
+ * @version May 6, 2015
+ * @author Period: TODO
+ * @author Assignment: APCSFinal
+ *
+ * @author Sources: TODO
+ */
 public class CheckerBoard
 {
     char[][] board;
@@ -31,14 +43,15 @@ public class CheckerBoard
 
     public static final char BLACK_KING = 'B';
 
-   
-
-   
     private Stack<Move> moves;
 
     private Game game;
 
 
+    /**
+     * @param game
+     *            the game instance that created this checkerboard
+     */
     public CheckerBoard( Game game )
     {
         char[][] a = { { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
@@ -51,26 +64,39 @@ public class CheckerBoard
             { 'r', '.', 'r', '.', 'r', '.', 'r', '.' } };
         board = a;
         isRedTurn = true;
-        
+
         moves = new Stack<Move>();
         this.game = game;
         initPieceList();
-        System.out.println(this);
-        
-        
-    }
-   
+        System.out.println( this );
 
+    }
+
+
+    /**
+     * 
+     * @return the number of red pieces
+     */
     public int getNumRed()
     {
         return redPieces.size();
-        
+
     }
+
+
+    /**
+     * 
+     * @return total number of black pieces
+     */
     public int getNumBlack()
     {
         return blackPieces.size();
     }
 
+
+    /**
+     * initialize the piece list with the original game board
+     */
     private void initPieceList()
     {
         for ( int row = 0; row < board.length; row++ )
@@ -91,27 +117,42 @@ public class CheckerBoard
     }
 
 
+    /**
+     * TODO Write your method description here.
+     * 
+     * @return checks if the game is over
+     */
     boolean isGameOver()
     {
 
-        Set<Point> myList = isRedTurn?redPieces:blackPieces;
-        if(myList.isEmpty())
+        Set<Point> myList = isRedTurn ? redPieces : blackPieces;
+        if ( myList.isEmpty() )
         {
             return true;
         }
-        for(Point loc:myList)
+        for ( Point loc : myList )
         {
-            if (listSimpleMoves(loc.x, loc.y).size() != 0)
+            if ( listSimpleMoves( loc.x, loc.y ).size() != 0 )
             {
-              return false;  
+                return false;
             }
         }
-        
-        
+        if ( areJumps( isRedTurn ) )
+        {
+            return false;
+        }
+
         return true;
     }
 
 
+    /**
+     * lists all non compound moves for a certain square
+     * 
+     * @param row
+     * @param col
+     * @return
+     */
     private ArrayList<Move> listOneStepMoves( int row, int col )
     {
         ArrayList<Move> m = listSimpleMoves( row, col );
@@ -120,6 +161,13 @@ public class CheckerBoard
     }
 
 
+    /**
+     * List all legal jump moves for a given square
+     * 
+     * @param row
+     * @param col
+     * @return
+     */
     private ArrayList<Move> listJumpMoves( int row, int col )
     {
         ArrayList<Move> moves = new ArrayList<>();
@@ -203,6 +251,13 @@ public class CheckerBoard
     }
 
 
+    /**
+     * List all simple moves for a given square
+     * 
+     * @param row
+     * @param col
+     * @return
+     */
     private ArrayList<Move> listSimpleMoves( int row, int col )
     {
         ArrayList<Move> moves = new ArrayList<>();
@@ -253,12 +308,25 @@ public class CheckerBoard
     }
 
 
+    /**
+     * checks if a row col pair is inbounds
+     * 
+     * @param eRow
+     * @param eCol
+     * @return
+     */
     private boolean inBounds( int eRow, int eCol )
     {
         return ( 0 <= eRow && eRow < board.length && 0 <= eCol && eCol < board[0].length );
     }
 
 
+    /**
+     * checks if a move is legal.
+     * 
+     * @param m
+     * @return
+     */
     public boolean isLegal( Move m )
     {
         int sr = m.getStartRow();
@@ -270,22 +338,23 @@ public class CheckerBoard
             return false;
         if ( m.isRed() != isRed( m.getStartRow(), m.getStartCol() ) )
         {
-            System.out.println("not your piece");
+            System.out.println( "not your piece" );
             return false;
         }
+        if(m.isRed() == isBlack(sr,sc) )
         if ( !m.isSimpleMove() && !m.isJump() )
         {
-            System.out.println("Move must be a simple move or a jump");
+            System.out.println( "Move must be a simple move or a jump" );
             return false;
         }
         if ( ( board[m.getEndRow()][m.getEndCol()] != ' ' ) )
         {
-            System.out.println("End square occupied");
+            System.out.println( "End square occupied" );
             return false;
         }
         if ( m.isKingMove() )
         {
-            System.out.println("not a king");
+            System.out.println( "not a king" );
             if ( !isKing( sr, sc ) )
             {
                 return false;
@@ -295,14 +364,14 @@ public class CheckerBoard
         {
             if ( !Character.isLetter( board[( m.getEndRow() + m.getStartRow() ) / 2][( m.getEndCol() + m.getStartCol() ) / 2] ) )
             {
-                System.out.println("that square is empty!");
+                System.out.println( "that square is empty!" );
                 return false;
-                
+
             }
             if ( isRed( ( m.getEndRow() + m.getStartRow() ) / 2,
                 ( m.getEndCol() + m.getStartCol() ) / 2 ) == m.isRed() )
             {
-                System.out.println("Can't capture own piece");
+                System.out.println( "Can't capture own piece" );
                 return false;
             }
 
@@ -315,6 +384,38 @@ public class CheckerBoard
     }
 
 
+    /**
+     * If a multi move is legal, do it
+     * 
+     * @param mo
+     * @return
+     */
+    public boolean doMove( MultiMove mo ) // TODO FIX: this method starts doing
+                                          // the move while checking the
+                                          // legality of the move. must check
+                                          // legalitty BEFORE
+    {
+        for ( int i = 0; i < mo.size() - 1; i++ )
+        {
+            if ( mo.get( i ).getEndCol() == mo.get( i + 1 ).getStartCol()
+                && mo.get( i ).getEndRow() == mo.get( i + 1 ).getStartRow() )
+            {
+                if ( !doMove( mo.get( i ) ) )
+                {
+                    return false;
+                }
+
+            }
+        }
+        return doMove( mo.get( mo.size() - 1 ) );
+    }
+
+
+    /**
+     * are there legal jump moves for a certain color
+     * @param isRed
+     * @return
+     */
     private boolean areJumps( boolean isRed )
     {
 
@@ -336,16 +437,17 @@ public class CheckerBoard
             int a = isRed ? -1 : 1;
             for ( int b = -1; b < 2; b += 2 )
             {
-                try{
-                if ( board[row + a][col + b] == oLet
-                    && board[row + 2 * a][col + 2 * b] == ' ' )
+                try
                 {
-                    return true;
+                    if ( board[row + a][col + b] == oLet
+                        && board[row + 2 * a][col + 2 * b] == ' ' )
+                    {
+                        return true;
+                    }
                 }
-                }
-                catch(ArrayIndexOutOfBoundsException e)
+                catch ( ArrayIndexOutOfBoundsException e )
                 {
-                    
+
                 }
             }
 
@@ -367,19 +469,47 @@ public class CheckerBoard
     }
 
 
+    /**
+     * Does this square contain a king
+     * @param row
+     * @param col
+     * @return
+     */
     private boolean isKing( int row, int col )
     {
         return Character.isUpperCase( board[row][col] );
     }
 
 
+    /**
+     * is the piece at this square red? false does not imply black, @see isBlack()
+     * @param col
+     * @return
+     */
     private boolean isRed( int row, int col )
     {
         return ( Character.isLetter( board[row][col] ) && Character.toLowerCase( board[row][col] ) == 'r' );
 
     }
+    
+    /**
+     * Returns true iff a piece is black, FALSE DOES NOT IMPLY RED @SEE isRed()
+     * @param row
+     * @param col
+     * @return
+     */
+    private boolean isBlack(int row, int col)
+    {
+        return ( Character.isLetter( board[row][col] ) && Character.toLowerCase( board[row][col] ) == 'b' );
+
+    }
 
 
+    /**
+     * Execute a move. first check legality 
+     * @param m
+     * @return
+     */
     public boolean doMove( Move m )
     {
         int sr = m.getStartRow();
@@ -392,7 +522,7 @@ public class CheckerBoard
 
         if ( !isLegal( m ) )
         {
-            System.out.println("illegal move");
+            System.out.println( "illegal move" );
             return false;
         }
         char a = board[m.getStartRow()][m.getStartCol()];
@@ -412,33 +542,41 @@ public class CheckerBoard
                                              // king the piece
         {
             board[er][ec] = Character.toUpperCase( board[er][ec] );
-           
+
         }
         isRedTurn = !isRedTurn;
-        moves.push( m );    
+        moves.push( m );
         isGameOver();
-       
-        System.out.println(this);
+
+        System.out.println( this );
         return true;
     }
-  
-    
-   
+
+
+    /**
+     * 
+     * @return true if it's red turn
+     */
     public boolean isRedTurn()
     {
         return isRedTurn;
     }
+
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString()
     {
         String ret = "";
-        for(char[] a:board)
+        for ( char[] a : board )
         {
-            for(char b:a)
+            for ( char b : a )
             {
-                ret+= b;
+                ret += b;
             }
-            ret+= '\n';
+            ret += '\n';
         }
         return ret;
 

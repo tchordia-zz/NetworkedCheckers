@@ -103,6 +103,20 @@ public class Move
         
         
     }
+    @Override
+    public boolean equals(Object a)
+    {
+        if((a instanceof Move))
+        {
+            Move m =(Move)a;
+            if(m.endCol == this.endCol && m.endRow == this.endRow && m.startCol == this.startCol  && m.startRow == this.startRow)
+            {
+                return isRed() == m.isRed();
+            }
+        }
+        return false;
+        
+    }
     
     
    
