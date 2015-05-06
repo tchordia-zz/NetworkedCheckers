@@ -3,28 +3,38 @@ package Model;
 public class Move
 {
     private final int startRow;
+
     private final int startCol;
+
     private final int endRow;
+
     private final int endCol;
+
     private final boolean isRed;
-    private final Player owner;
-    
+
+
     /**
      * @param startRow
      * @param startCol
      * @param endRow
      * @param endCol
      */
-    public Move( int startRow, int startCol, int endRow, int endCol, Player p )
+    public Move(
+        int startRow,
+        int startCol,
+        int endRow,
+        int endCol,
+        boolean isRed )
     {
-        
+
         this.startRow = startRow;
         this.startCol = startCol;
         this.endRow = endRow;
         this.endCol = endCol;
-        this.owner = p;
-        isRed = owner.isRed();
+
+        this.isRed = isRed;
     }
+
 
     /**
      * @return Returns the startRow.
@@ -34,6 +44,7 @@ public class Move
         return startRow;
     }
 
+
     /**
      * @return Returns the startCol.
      */
@@ -41,6 +52,7 @@ public class Move
     {
         return startCol;
     }
+
 
     /**
      * @return Returns the endRow.
@@ -50,6 +62,7 @@ public class Move
         return endRow;
     }
 
+
     /**
      * @return Returns the endCol.
      */
@@ -58,38 +71,59 @@ public class Move
         return endCol;
     }
 
+
     /**
      * @return Returns the color of the player.
      */
-    public Player getPlayer()
-    {
-        return owner;
-    }
-    
-    
-    /**
-     * @return Returns the isRed.
-     */
+
     public boolean isRed()
     {
         return isRed;
     }
-    
-    
+
+
     /**
      * @return Returns if jump is valid.
      */
     public boolean isJump()
     {
-        if(Math.abs(startCol - endCol) >= 1 && Math.abs(startRow - endRow >= 1) )
+
+        if ( Math.abs( startCol - endCol ) == 2
+            && Math.abs( startRow - endRow ) == 2 )
+
         {
             return true;
         }
         return false;
     }
-    
-    
-   
-    
-    
+
+
+    public boolean isSimpleMove()
+    {
+        if ( Math.abs( startCol - endCol ) == 1
+            && Math.abs( startRow - endRow ) == 1 )
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean isKingMove()
+    {
+        if ( isRed() )
+        {
+            return endRow > startRow; // Red moves up on the checkerboard,
+                                      // moving down means king move means row
+                                      // index increases
+        }
+        else
+        {
+            return startRow > endRow; // Black moves down, so a king (backwards
+                                      // move) means that the start row is more
+                                      // than the end row
+        }
+
+    }
+
 }
