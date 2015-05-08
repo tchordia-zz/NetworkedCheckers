@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 
+
 public class CheckerBoard
 {
     char[][] board;
@@ -32,12 +33,14 @@ public class CheckerBoard
 
     private Stack<Move> moves;
 
+
     private Game game;
 
 
     public CheckerBoard( Game game )
     {
         char[][] a = { { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+
             { 'b', '.', 'b', '.', 'b', '.', 'b', '.' },
             { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
             { ' ', '.', ' ', '.', ' ', '.', ' ', '.' },
@@ -53,6 +56,7 @@ public class CheckerBoard
         numBlackKings = 0;
         this.game = game;
     }
+
 
 
     protected boolean isGameOver()
