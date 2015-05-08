@@ -14,9 +14,9 @@ public class Piece
      * @param color
      *            the color of the piece
      */
-    public Piece( Color color )
+    public Piece( Color magical )
     {
-        c = color;
+        c = magical;
     }
 
 

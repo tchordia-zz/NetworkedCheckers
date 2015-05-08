@@ -12,7 +12,7 @@ import java.awt.geom.Ellipse2D;
 public class PieceDisplay
 {
 
-    private Shape body;
+    private Shape shapes;
 
     public PieceDisplay()
     {
