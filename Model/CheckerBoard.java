@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Stack;
 
 
+
 /**
  * Class that represents a checkerboard. Implements the checkerboard as a 2d
  * array of chars, with r representing red and b representing black. '.' is null
@@ -21,6 +22,8 @@ import java.util.Stack;
  *
  * @author Sources: TODO
  */
+
+
 public class CheckerBoard
 {
     char[][] board;
@@ -45,6 +48,7 @@ public class CheckerBoard
 
     private Stack<Move> moves;
 
+
     private Game game;
 
 
@@ -55,6 +59,7 @@ public class CheckerBoard
     public CheckerBoard( Game game )
     {
         char[][] a = { { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+
             { 'b', '.', 'b', '.', 'b', '.', 'b', '.' },
             { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
             { ' ', '.', ' ', '.', ' ', '.', ' ', '.' },
@@ -78,6 +83,7 @@ public class CheckerBoard
      * @return the number of red pieces
      */
     public int getNumRed()
+
     {
         return redPieces.size();
 

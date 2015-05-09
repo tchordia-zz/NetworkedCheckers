@@ -79,7 +79,7 @@ public class Move
 
 
     /**
-     * @return Returns the isRed.
+     * @return Returns the color of the player.
      */
 
     public boolean isRed()
@@ -88,6 +88,9 @@ public class Move
     }
 
 
+    /**
+     * @return Returns if jump is valid.
+     */
     public boolean isJump()
     {
 
