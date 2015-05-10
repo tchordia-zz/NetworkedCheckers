@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.StringTokenizer;
+
 public class Move
 {
     private final int startRow;
@@ -34,6 +36,21 @@ public class Move
 
         this.isRed = isRed;
     }
+    
+    //For network purpose, construct move object from String sent over network
+ public static Move stringToMove(String s)
+ {
+     StringTokenizer a = new StringTokenizer( s,"," );
+  
+     try{
+     Move m = new Move(Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken())==1);
+     return m;
+     }
+     catch(Exception e)
+     {
+     return null;
+     }
+ }
 
 
     public static Move firstMove()
@@ -147,6 +164,12 @@ public class Move
         }
         return false;
 
+    }
+    
+    @Override
+    public String toString()
+    {
+        return startRow + "," + startCol + "," + endRow + "," + endCol + "," + (isRed()?1:0);
     }
 
 }
