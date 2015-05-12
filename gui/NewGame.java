@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import info.gridworld.grid.Grid;
 
@@ -28,17 +29,19 @@ public class NewGame extends JFrame
         board.setBackground( Color.BLUE );
         chat.setBackground( Color.RED );
         
-        board.setVisible( true );
         chat.setVisible( true );
+        board.setVisible( true );
+        this.setLayout( new GridLayout());
+        getContentPane().add(chat);
+        getContentPane().add(board);
     }
     
     public static void main(String[] args)
     {
-        JFrame window = new JFrame();
+        JFrame window = new NewGame();
         window.setBounds( x, y, width, height );
         window.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         
         window.setVisible( true );
     }
-    
 }
