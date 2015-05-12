@@ -13,6 +13,9 @@ public class PieceDisplay
 {
 
     private Shape shapes;
+    private double radius = 0;
+    private Color color;
+    
 
     public PieceDisplay()
     {
