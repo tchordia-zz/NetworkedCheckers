@@ -88,11 +88,4 @@ public class BoardGUI
             pieces.add( new Piece( 2, 7, Color.BLACK ) );
         }
     }
-
-
-    private void add( Location location, Piece piece )
-    {
-        // TODO Auto-generated method stub
-
-    }
 }
