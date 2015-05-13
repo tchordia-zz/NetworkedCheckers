@@ -19,29 +19,22 @@ public class NewGame extends JFrame
 
     private static int y = 0;
 
-    private static int width = 800;
+    private static int width = 500;
 
     private static int height = 500;
 
     DisplayMap map = new DisplayMap();
 
-    ResourceBundle res;
-
     BoundedGrid<Piece> gr = new BoundedGrid<Piece>( 8, 8 );
-
 
 
     public NewGame()
     {
-        GridPanel board = new GridPanel( map, res );
-       
+        GridPanel board = new GridPanel( map );
         board.setGrid( gr );
-
-        // board.setBackground( Color.BLUE );
         board.setVisible( true );
-        this.setLayout( new GridLayout() );
-
         getContentPane().add( board );
+        
     }
 
 
@@ -51,5 +44,6 @@ public class NewGame extends JFrame
         window.setBounds( x, y, width, height );
         window.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         window.setVisible( true );
+        window.setLayout( new GridLayout() );
     }
 }

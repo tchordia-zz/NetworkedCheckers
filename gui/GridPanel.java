@@ -73,7 +73,7 @@ public class GridPanel extends JPanel implements Scrollable,
     private int cellSize; // the size of each cell, EXCLUDING the gridlines
     private boolean toolTipsEnabled;
     private Color backgroundColor = Color.WHITE;
-    private ResourceBundle resources;
+
     private DisplayMap displayMap;
     private Location currentLocation;
     private Timer tipTimer;
@@ -84,10 +84,9 @@ public class GridPanel extends JPanel implements Scrollable,
      * Construct a new GridPanel object with no grid. The view will be
      * empty.
      */
-    public GridPanel(DisplayMap map, ResourceBundle res)
+    public GridPanel(DisplayMap map)
     {
         displayMap = map;
-        resources = res;
         setToolTipsEnabled(true);
     }
 
@@ -108,7 +107,7 @@ public class GridPanel extends JPanel implements Scrollable,
         g2.fillRect(insets.left, insets.top, numCols * (cellSize + 1) + 1, numRows
                 * (cellSize + 1) + 1);
 
-        drawWatermark(g2);
+
         drawGridlines(g2);
         drawOccupants(g2);
         drawCurrentLocation(g2);
@@ -215,32 +214,7 @@ public class GridPanel extends JPanel implements Scrollable,
         }
     }
 
-    /**
-     * Draws a watermark that shows the version number if it is < 1.0
-     * @param g2 the graphics context
-     */
-    private void drawWatermark(Graphics2D g2)
-    {
-        if ("hide".equals(System.getProperty("info.gridworld.gui.watermark")))
-            return;
-        g2 = (Graphics2D) g2.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        Rectangle rect = getBounds();
-        g2.setPaint(new Color(0xE3, 0xD3, 0xD3));
-        final int WATERMARK_FONT_SIZE = 100;
-        String s = resources.getString("version.id");
-        if ("1.0".compareTo(s) <= 0) return;
-        g2.setFont(new Font("SansSerif", Font.BOLD, WATERMARK_FONT_SIZE));
-        FontRenderContext frc = g2.getFontRenderContext();
-        Rectangle2D bounds = g2.getFont().getStringBounds(s, frc);
-        float centerX = rect.x + rect.width / 2;
-        float centerY = rect.y + rect.height / 2;
-        float leftX = centerX - (float) bounds.getWidth() / 2;
-        LineMetrics lm = g2.getFont().getLineMetrics(s, frc);
-        float baselineY = centerY - lm.getHeight() / 2 + lm.getAscent();
-        g2.drawString(s, leftX, baselineY);
-    }
+
 
     /**
      * Enables/disables showing of tooltip giving information about the
@@ -406,26 +380,7 @@ public class GridPanel extends JPanel implements Scrollable,
      * @param evt the MouseEvent in question
      * @return the tool tip string for this location
      */
-    public String getToolTipText(MouseEvent evt)
-    {
-        Location loc = locationForPoint(evt.getPoint());
-        return getToolTipText(loc);
-    }
-
-    private String getToolTipText(Location loc)
-    {
-        if (!toolTipsEnabled || loc == null || !grid.isValid(loc))
-            return null;
-        Object f = grid.get(loc);
-        if (f != null)
-            return MessageFormat.format(resources
-                    .getString("cell.tooltip.nonempty"), new Object[]
-                { loc, f });
-        else
-            return MessageFormat.format(resources
-                    .getString("cell.tooltip.empty"), new Object[]
-                { loc, f });
-    }
+   
 
     /**
      * Sets the current location.
@@ -501,8 +456,7 @@ public class GridPanel extends JPanel implements Scrollable,
             }
         }
         repaint();
-        showTip(getToolTipText(currentLocation),
-                pointForLocation(currentLocation));
+        
     }
 
     /**
@@ -650,9 +604,6 @@ public class GridPanel extends JPanel implements Scrollable,
         if (!isPannableUnbounded() && vp != null)
             upperLeft = vp.getViewPosition();
         Location loc = locationForPoint(upperLeft);
-        if (loc != null)
-            tipText = getToolTipText(loc);
 
-        showTip(tipText, getLocation());
     }
 }
