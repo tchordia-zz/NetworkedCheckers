@@ -512,8 +512,11 @@ public class CheckerBoard
     {
         return isRedTurn;
     }
+    public boolean inCompoundMove(){
+        return inCompoundMove;
+    }
 
-
+    // for test purposes/ text based game
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
