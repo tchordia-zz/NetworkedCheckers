@@ -7,15 +7,16 @@ public class HumanPlayer extends Player
     {
         super(username);
     }
-    @Override
-    public void moveHappened( Move move )
-    {
-        
-      
-    }
+   
    
     @Override
     public void doMove()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public void gameOver( boolean isRedWinner )
     {
         // TODO Auto-generated method stub
         
