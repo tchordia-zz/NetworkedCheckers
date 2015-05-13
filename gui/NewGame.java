@@ -3,45 +3,53 @@ package gui;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ResourceBundle;
 
 import info.gridworld.grid.Grid;
+import info.gridworld.grid.Location;
+import info.gridworld.gui.DisplayMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 public class NewGame extends JFrame
 {
     private static int x = 0;
+
     private static int y = 0;
+
     private static int width = 800;
+
     private static int height = 500;
-    
-    public NewGame(  )
+
+    DisplayMap map = new DisplayMap();
+
+    ResourceBundle res;
+
+    BoundedGrid<Piece> gr = new BoundedGrid<Piece>( 8, 8 );
+
+
+
+    public NewGame()
     {
-        JPanel board = new JPanel();
-        JPanel chat = new JPanel();
-        board.setLayout( new FlowLayout() );
-        chat.setLayout( new FlowLayout() );
-        
-        board.setBounds( x, y, height, height );
-        chat.setBounds( x, y, height - width, height );
-        
-        board.setBackground( Color.BLUE );
-        chat.setBackground( Color.RED );
-        
-        chat.setVisible( true );
+        GridPanel board = new GridPanel( map, res );
+       
+        board.setGrid( gr );
+
+        // board.setBackground( Color.BLUE );
         board.setVisible( true );
-        this.setLayout( new GridLayout());
-        getContentPane().add(chat);
-        getContentPane().add(board);
+        this.setLayout( new GridLayout() );
+
+        getContentPane().add( board );
     }
-    
-    public static void main(String[] args)
+
+
+    public static void main( String[] args )
     {
         JFrame window = new NewGame();
         window.setBounds( x, y, width, height );
         window.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        
         window.setVisible( true );
     }
 }
