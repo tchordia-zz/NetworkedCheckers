@@ -43,6 +43,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolTip;
 import javax.swing.JViewport;
@@ -63,9 +64,9 @@ import javax.swing.ToolTipManager;
 public class GridPanel extends JPanel implements Scrollable,
         PseudoInfiniteViewport.Pannable
 {
-    private static final int MIN_CELL_SIZE = 12;
-    private static final int DEFAULT_CELL_SIZE = 48;
-    private static final int DEFAULT_CELL_COUNT = 10;
+    public static int minCellSize = 500/8;
+    public static int defaultCellSize = 500/8;
+    public static final int DEFAULT_CELL_COUNT = 10 ;
     private static final int TIP_DELAY = 1000;
 
     private Grid<?> grid;
@@ -259,7 +260,7 @@ public class GridPanel extends JPanel implements Scrollable,
             numRows = grid.getNumRows();
             numCols = grid.getNumCols();
         }
-        recalculateCellSize(MIN_CELL_SIZE);        
+        recalculateCellSize(minCellSize);        
     }
 
     // private helpers to calculate extra width/height needs for borders/insets.
@@ -289,8 +290,8 @@ public class GridPanel extends JPanel implements Scrollable,
      */
     public Dimension getMinimumSize()
     {
-        return new Dimension(numCols * (MIN_CELL_SIZE + 1) + 1 + extraWidth(), 
-                numRows * (MIN_CELL_SIZE + 1) + 1 + extraHeight());
+        return new Dimension(numCols * (minCellSize + 1) + 1 + extraWidth(), 
+                numRows * (minCellSize + 1) + 1 + extraHeight());
     }
 
     /**
@@ -307,7 +308,7 @@ public class GridPanel extends JPanel implements Scrollable,
      */
     public void zoomOut()
     {
-        cellSize = Math.max(cellSize / 2, MIN_CELL_SIZE);
+        cellSize = Math.max(cellSize / 2, minCellSize);
         revalidate();
     }
 
@@ -523,12 +524,12 @@ public class GridPanel extends JPanel implements Scrollable,
                     (viewableSize.width - extraWidth()) / numCols) - 1;
             // now we want to approximate this with 
             // DEFAULT_CELL_SIZE * Math.pow(2, k)
-            cellSize = DEFAULT_CELL_SIZE;
+            cellSize = defaultCellSize;
             if (cellSize <= desiredCellSize)                
                 while (2 * cellSize <= desiredCellSize)
                     cellSize *= 2;
             else
-                while (cellSize / 2 >= Math.max(desiredCellSize, MIN_CELL_SIZE))
+                while (cellSize / 2 >= Math.max(desiredCellSize, minCellSize))
                     cellSize /= 2;
         }
         revalidate();
@@ -571,8 +572,8 @@ public class GridPanel extends JPanel implements Scrollable,
 
     public Dimension getPreferredScrollableViewportSize()
     {
-        return new Dimension(DEFAULT_CELL_COUNT * (DEFAULT_CELL_SIZE + 1) + 1 + extraWidth(), 
-                DEFAULT_CELL_COUNT * (DEFAULT_CELL_SIZE + 1) + 1 + extraHeight());
+        return new Dimension(DEFAULT_CELL_COUNT * (defaultCellSize + 1) + 1 + extraWidth(), 
+                DEFAULT_CELL_COUNT * (defaultCellSize + 1) + 1 + extraHeight());
     }
 
     // GridPanel implements the PseudoInfiniteViewport.Pannable interface to
