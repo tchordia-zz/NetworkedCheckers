@@ -5,7 +5,11 @@ import java.awt.Color;
 
 public class Piece
 {
-    private Color c;
+    private Color color;
+
+    int x;
+
+    int y;
 
 
     /**
@@ -14,9 +18,11 @@ public class Piece
      * @param color
      *            the color of the piece
      */
-    public Piece( Color magical )
+    public Piece( int a, int b, Color c )
     {
-        c = magical;
+        this.color = c;
+        x = a;
+        y = b;
     }
 
 
@@ -27,7 +33,7 @@ public class Piece
      */
     public Color getColor()
     {
-        return c;
+        return color;
     }
 
 
@@ -39,6 +45,30 @@ public class Piece
      */
     public void setColor( Color newColor )
     {
-        c = newColor;
+        color = newColor;
+    }
+
+
+    public int getX()
+    {
+        return x;
+    }
+
+
+    public int getY()
+    {
+        return y;
+    }
+
+
+    public void setX( int a )
+    {
+        x = a;
+    }
+
+
+    public void setY( int b )
+    {
+        y = b;
     }
 }

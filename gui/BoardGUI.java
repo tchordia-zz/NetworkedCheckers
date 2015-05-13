@@ -8,63 +8,91 @@ import java.awt.Color;
 import java.awt.GraphicsConfiguration;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JFrame;
 
 import Model.CheckerBoard;
 
+
 public class BoardGUI
 {
     /** The checker game */
     private CheckerBoard game;
 
-    /** A semaphore to prevent getPlayerLocation from executing
-     *  before setPlayerLocation */
+    /**
+     * A semaphore to prevent getPlayerLocation from executing before
+     * setPlayerLocation
+     */
     private Semaphore lock;
 
     /** The last selected player location */
     private Location playerLocation;
 
+    private List pieces = new ArrayList<>();
+
+    public boolean red;
+
+
     /**
-     * Construct an checker world
-     * game The checker game
+     * Construct an checker world game The checker game
      */
-    public BoardGUI(CheckerBoard g)
+    public BoardGUI( CheckerBoard g, boolean r )
     {
         game = (CheckerBoard)g;
+        red = r;
+
         playerLocation = null;
 
-        add(new Location(0, 1), new Piece(Color.RED));
-        add(new Location(0, 3), new Piece(Color.RED));
-        add(new Location(0, 5), new Piece(Color.RED));
-        add(new Location(0, 7), new Piece(Color.RED));
-        add(new Location(1, 0), new Piece(Color.RED));
-        add(new Location(1, 2), new Piece(Color.RED));
-        add(new Location(1, 4), new Piece(Color.RED));
-        add(new Location(1, 6), new Piece(Color.RED));
-        add(new Location(2, 1), new Piece(Color.RED));
-        add(new Location(2, 3), new Piece(Color.RED));
-        add(new Location(2, 5), new Piece(Color.RED));
-        add(new Location(2, 7), new Piece(Color.RED));
-        
-        add(new Location(5, 0), new Piece(Color.BLACK));
-        add(new Location(5, 2), new Piece(Color.BLACK));
-        add(new Location(5, 4), new Piece(Color.BLACK));
-        add(new Location(5, 6), new Piece(Color.BLACK));
-        add(new Location(6, 1), new Piece(Color.BLACK));
-        add(new Location(6, 3), new Piece(Color.BLACK));
-        add(new Location(6, 5), new Piece(Color.BLACK));
-        add(new Location(6, 7), new Piece(Color.BLACK));
-        add(new Location(7, 0), new Piece(Color.BLACK));
-        add(new Location(7, 2), new Piece(Color.BLACK));
-        add(new Location(7, 4), new Piece(Color.BLACK));
-        add(new Location(7, 6), new Piece(Color.BLACK));
     }
+
+
+    public List getPieces()
+    {
+        return pieces;
+    }
+
+
+    public void createPiece()
+    {
+        if ( red == true )
+        {
+            pieces.add( new Piece( 0, 1, Color.RED ) );
+            pieces.add( new Piece( 0, 3, Color.RED ) );
+            pieces.add( new Piece( 0, 5, Color.RED ) );
+            pieces.add( new Piece( 0, 7, Color.RED ) );
+            pieces.add( new Piece( 1, 0, Color.RED ) );
+            pieces.add( new Piece( 1, 2, Color.RED ) );
+            pieces.add( new Piece( 1, 4, Color.RED ) );
+            pieces.add( new Piece( 1, 6, Color.RED ) );
+            pieces.add( new Piece( 2, 1, Color.RED ) );
+            pieces.add( new Piece( 2, 3, Color.RED ) );
+            pieces.add( new Piece( 2, 5, Color.RED ) );
+            pieces.add( new Piece( 2, 7, Color.RED ) );
+        }
+        else
+        {
+            pieces.add( new Piece( 0, 1, Color.BLACK ) );
+            pieces.add( new Piece( 0, 3, Color.BLACK ) );
+            pieces.add( new Piece( 0, 5, Color.BLACK ) );
+            pieces.add( new Piece( 0, 7, Color.BLACK ) );
+            pieces.add( new Piece( 1, 0, Color.BLACK ) );
+            pieces.add( new Piece( 1, 2, Color.BLACK ) );
+            pieces.add( new Piece( 1, 4, Color.BLACK ) );
+            pieces.add( new Piece( 1, 6, Color.BLACK ) );
+            pieces.add( new Piece( 2, 1, Color.BLACK ) );
+            pieces.add( new Piece( 2, 3, Color.BLACK ) );
+            pieces.add( new Piece( 2, 5, Color.BLACK ) );
+            pieces.add( new Piece( 2, 7, Color.BLACK ) );
+        }
+    }
+
 
     private void add( Location location, Piece piece )
     {
         // TODO Auto-generated method stub
-        
+
     }
 }
