@@ -133,25 +133,7 @@ public class BoundedGrid<E> extends AbstractGrid<E>
         occupantArray[loc.getRow()][loc.getCol()] = null;
         return r;
     }
-    public void setToCheckers()
-    {
-        for ( int row = 0; row < 8; row++ )
-        {
-            for ( int col = 0; col < 8; col++ )
-            {
-                if ( row % 2 == col % 2 )
-                {
-                    //setColor( Color.lightGray );
-                }
-                else
-                {
-                   //setColor( Color.red );
-                }
-                
-            }
-        }
-    }
-
+   
    
 
 }

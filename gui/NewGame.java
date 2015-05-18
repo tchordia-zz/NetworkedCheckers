@@ -18,15 +18,12 @@ public class NewGame extends JFrame
 
     GridPanel board;
 
- 
-
 
     public NewGame()
     {
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         setVisible( true );
         setLayout( new GridLayout() );
-        
         board = new GridPanel( map );
         board.setGrid( gr );
         board.setVisible( true );
@@ -37,11 +34,27 @@ public class NewGame extends JFrame
     }
 
 
+    public void paint( Graphics g )
+    {
+        for ( int row = 0; row < 8; row++ )
+        {
+            for ( int col = 0; col < 8; col++ )
+            {
+                if ( row % 2 == col % 2 )
+                    g.setColor( Color.red );
+                else
+                    g.setColor( Color.gray );
+
+                g.fillRect( row * board.minCellSize, col* board.minCellSize, board.minCellSize, board.minCellSize );
+            }
+        }
+    }
 
 
     public static void main( String[] args )
     {
         JFrame window = new NewGame();
-        
+
+
     }
 }
