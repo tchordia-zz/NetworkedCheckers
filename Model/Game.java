@@ -26,7 +26,7 @@ public class Game
         black = blackP;  
         black.newGame( this, !RED );
         
-        board = new CheckerBoard( this );
+        board = new CheckerBoard();
         while(!board.isGameOver())
         {
             Player c = board.isRedTurn()?red:black;

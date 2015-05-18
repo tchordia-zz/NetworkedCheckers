@@ -1,6 +1,9 @@
 package Model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,6 +24,7 @@ import org.junit.Test;
 public class MJUnit
 {
 
+    
     /**
      * TODO Write your method description here.
      * @throws java.lang.Exception
@@ -67,6 +71,7 @@ public class MJUnit
     @Test
     public void testCheckerBoard()
     {
+        
         fail( "Not yet implemented" );
     }
 
@@ -77,7 +82,17 @@ public class MJUnit
     @Test
     public void testGetNumRed()
     {
-        fail( "Not yet implemented" );
+        CheckerBoard c = new CheckerBoard();
+        assertTrue(c.getNumRed() == 12);
+        
+        Move[] b = {new Move(5,0,4,1,true), new Move(2,1,3,2,false), new Move(5,2,4,3,true), new Move(3,2,5,0,false)  };
+        for(Move a:b)
+        {
+            c.doMove( a );
+        }
+        assertTrue(c.getNumRed() == 11);
+       
+        
     }
 
 

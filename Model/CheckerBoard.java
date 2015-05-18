@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.Stack;
 
 
-
 /**
  * Class that represents a checkerboard. Implements the checkerboard as a 2d
  * array of chars, with r representing red and b representing black. '.' is null
@@ -22,7 +21,6 @@ import java.util.Stack;
  *
  * @author Sources: TODO
  */
-
 
 public class CheckerBoard
 {
@@ -45,39 +43,51 @@ public class CheckerBoard
     public static final char RED_KING = 'R';
 
     public static final char BLACK_KING = 'B';
-    
+
+    public static final char[][] initC = {
+        { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+
+        { 'b', '.', 'b', '.', 'b', '.', 'b', '.' },
+        { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+        { ' ', '.', ' ', '.', ' ', '.', ' ', '.' },
+        { '.', ' ', '.', ' ', '.', ' ', '.', ' ' },
+        { 'r', '.', 'r', '.', 'r', '.', 'r', '.' },
+        { '.', 'r', '.', 'r', '.', 'r', '.', 'r' },
+        { 'r', '.', 'r', '.', 'r', '.', 'r', '.' } };
+
+    protected static final char[][] testA = {
+        { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+        { 'b', '.', 'b', '.', 'b', '.', 'b', '.' },
+        { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+        { ' ', '.', ' ', '.', ' ', '.', ' ', '.' },
+        { '.', ' ', '.', ' ', '.', ' ', '.', ' ' },
+        { 'r', '.', 'r', '.', 'r', '.', 'r', '.' },
+        { '.', 'r', '.', 'r', '.', 'r', '.', 'r' },
+        { 'r', '.', 'r', '.', 'r', '.', 'r', '.' } };
+
     private boolean inCompoundMove = false;
-    private int currentRow = -1 ; //only for use in compound moves;
-    private int currentCol = -1; 
+
+    private int currentRow = -1; // only for use in compound moves;
+
+    private int currentCol = -1;
 
     private Stack<Move> moves;
-
-
-    private Game game;
 
 
     /**
      * @param game
      *            the game instance that created this checkerboard
      */
-    public CheckerBoard( Game game )
+    public CheckerBoard()
     {
-        char[][] a = { { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
 
-            { 'b', '.', 'b', '.', 'b', '.', 'b', '.' },
-            { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
-            { ' ', '.', ' ', '.', ' ', '.', ' ', '.' },
-            { '.', ' ', '.', ' ', '.', ' ', '.', ' ' },
-            { 'r', '.', 'r', '.', 'r', '.', 'r', '.' },
-            { '.', 'r', '.', 'r', '.', 'r', '.', 'r' },
-            { 'r', '.', 'r', '.', 'r', '.', 'r', '.' } };
-        board = a;
+        board = initC;
         isRedTurn = true;
 
         moves = new Stack<Move>();
-        this.game = game;
+
         initPieceList();
-        System.out.println( this );
+        // System.out.println( this );
 
     }
 
@@ -181,18 +191,18 @@ public class CheckerBoard
     private ArrayList<Move> listJumpMoves( int row, int col )
     {
         ArrayList<Move> moves = new ArrayList<>();
-        for(int a = -2; a < 3; a+= 4)
+        for ( int a = -2; a < 3; a += 4 )
         {
-            for(int b = -2; b < 3; b+= 4)
+            for ( int b = -2; b < 3; b += 4 )
             {
-                Move m = new Move(row,col, row + a, col + b, isRed(row, col));
-                if(isLegal(m))
+                Move m = new Move( row, col, row + a, col + b, isRed( row, col ) );
+                if ( isLegal( m ) )
                 {
-                 moves.add(m);   
+                    moves.add( m );
                 }
             }
         }
-        
+
         return moves;
 
     }
@@ -208,14 +218,14 @@ public class CheckerBoard
     private ArrayList<Move> listSimpleMoves( int row, int col )
     {
         ArrayList<Move> moves = new ArrayList<>();
-        for(int a = -1; a < 2; a+= 2)
+        for ( int a = -1; a < 2; a += 2 )
         {
-            for(int b = -1; b < 2; b+= 2)
+            for ( int b = -1; b < 2; b += 2 )
             {
-                Move m = new Move(row,col, row + a, col + b, isRed(row, col));
-                if(isLegal(m))
+                Move m = new Move( row, col, row + a, col + b, isRed( row, col ) );
+                if ( isLegal( m ) )
                 {
-                 moves.add(m);   
+                    moves.add( m );
                 }
             }
         }
@@ -257,12 +267,12 @@ public class CheckerBoard
             System.out.println( "not your piece" );
             return false;
         }
-        if(m.isRed() == isBlack(sr,sc) )
-        if ( !m.isSimpleMove() && !m.isJump() )
-        {
-            System.out.println( "Move must be a simple move or a jump" );
-            return false;
-        }
+        if ( m.isRed() == isBlack( sr, sc ) )
+            if ( !m.isSimpleMove() && !m.isJump() )
+            {
+                System.out.println( "Move must be a simple move or a jump" );
+                return false;
+            }
         if ( ( board[m.getEndRow()][m.getEndCol()] != ' ' ) )
         {
             System.out.println( "End square occupied" );
@@ -276,21 +286,21 @@ public class CheckerBoard
                 return false;
             }
         }
-        if(inCompoundMove&&!m.isJump())
+        if ( inCompoundMove && !m.isJump() )
         {
-            System.out.println("you are in a compound jump, you must jup");
-           return false;
+            System.out.println( "you are in a compound jump, you must jup" );
+            return false;
         }
-        
-        if(inCompoundMove)
+
+        if ( inCompoundMove )
         {
-            if(sr != currentRow || sc != currentCol)
+            if ( sr != currentRow || sc != currentCol )
             {
-                System.out.println("must move current piece");
+                System.out.println( "must move current piece" );
                 return false;
             }
         }
-            
+
         if ( m.isJump() )
         {
             if ( !Character.isLetter( board[( m.getEndRow() + m.getStartRow() ) / 2][( m.getEndCol() + m.getStartCol() ) / 2] ) )
@@ -314,36 +324,38 @@ public class CheckerBoard
         return true;
     }
 
-//
-//    /**
-//     * If a multi move is legal, do it
-//     * 
-//     * @param mo
-//     * @return
-//     */
-//    public boolean doMove( MultiMove mo ) // TODO FIX: this method starts doing
-//                                          // the move while checking the
-//                                          // legality of the move. must check
-//                                          // legalitty BEFORE
-//    {
-//        for ( int i = 0; i < mo.size() - 1; i++ )
-//        {
-//            if ( mo.get( i ).getEndCol() == mo.get( i + 1 ).getStartCol()
-//                && mo.get( i ).getEndRow() == mo.get( i + 1 ).getStartRow() )
-//            {
-//                if ( !doMove( mo.get( i ) ) )
-//                {
-//                    return false;
-//                }
-//
-//            }
-//        }
-//        return doMove( mo.get( mo.size() - 1 ) );
-//    }
 
+    //
+    // /**
+    // * If a multi move is legal, do it
+    // *
+    // * @param mo
+    // * @return
+    // */
+    // public boolean doMove( MultiMove mo ) // TODO FIX: this method starts
+    // doing
+    // // the move while checking the
+    // // legality of the move. must check
+    // // legalitty BEFORE
+    // {
+    // for ( int i = 0; i < mo.size() - 1; i++ )
+    // {
+    // if ( mo.get( i ).getEndCol() == mo.get( i + 1 ).getStartCol()
+    // && mo.get( i ).getEndRow() == mo.get( i + 1 ).getStartRow() )
+    // {
+    // if ( !doMove( mo.get( i ) ) )
+    // {
+    // return false;
+    // }
+    //
+    // }
+    // }
+    // return doMove( mo.get( mo.size() - 1 ) );
+    // }
 
     /**
      * are there legal jump moves for a certain color
+     * 
      * @param isRed
      * @return
      */
@@ -402,6 +414,7 @@ public class CheckerBoard
 
     /**
      * Does this square contain a king
+     * 
      * @param row
      * @param col
      * @return
@@ -413,7 +426,9 @@ public class CheckerBoard
 
 
     /**
-     * is the piece at this square red? false does not imply black, @see isBlack()
+     * is the piece at this square red? false does not imply black, @see
+     * isBlack()
+     * 
      * @param col
      * @return
      */
@@ -422,14 +437,16 @@ public class CheckerBoard
         return ( Character.isLetter( board[row][col] ) && Character.toLowerCase( board[row][col] ) == 'r' );
 
     }
-    
+
+
     /**
      * Returns true iff a piece is black, FALSE DOES NOT IMPLY RED @SEE isRed()
+     * 
      * @param row
      * @param col
      * @return
      */
-    private boolean isBlack(int row, int col)
+    private boolean isBlack( int row, int col )
     {
         return ( Character.isLetter( board[row][col] ) && Character.toLowerCase( board[row][col] ) == 'b' );
 
@@ -437,7 +454,8 @@ public class CheckerBoard
 
 
     /**
-     * Execute a move. first check legality 
+     * Execute a move. first check legality
+     * 
      * @param m
      * @return
      */
@@ -466,12 +484,12 @@ public class CheckerBoard
         {
             board[( sr + er ) / 2][( sc + ec ) / 2] = ' ';
             oset.remove( new Point( ( sr + er ) / 2, ( sc + ec ) / 2 ) );
-            if(hasJumps(er,ec))
+            if ( hasJumps( er, ec ) )
             {
                 inCompoundMove = true;
                 currentRow = er;
                 currentCol = ec;
-                
+
             }
             else
             {
@@ -488,21 +506,21 @@ public class CheckerBoard
             board[er][ec] = Character.toUpperCase( board[er][ec] );
 
         }
-        
-        
-        
-        isRedTurn = inCompoundMove?isRedTurn:!isRedTurn;
+
+        isRedTurn = inCompoundMove ? isRedTurn : !isRedTurn;
         moves.push( m );
         isGameOver();
 
         System.out.println( this );
         return true;
     }
-    
-    public boolean hasJumps(int row, int col)
+
+
+    public boolean hasJumps( int row, int col )
     {
-        return listJumpMoves(row, col).size()!=0;
+        return listJumpMoves( row, col ).size() != 0;
     }
+
 
     /**
      * 
@@ -512,12 +530,40 @@ public class CheckerBoard
     {
         return isRedTurn;
     }
-    public boolean inCompoundMove(){
+
+
+    public boolean inCompoundMove()
+    {
         return inCompoundMove;
     }
 
+
+    public void undo() //NotFunctional (YET)
+    {
+        if ( moves.isEmpty() )
+            return;
+
+        Move last = moves.pop();
+        int sr = last.getStartRow();
+        int sc = last.getStartCol();
+        int er = last.getEndRow();
+        int ec = last.getEndCol();
+
+        char temp = board[last.getEndRow()][last.getEndCol()];
+        board[last.getEndRow()][last.getEndCol()] = ' ';
+        board[last.getStartRow()][last.getStartCol()] = temp;
+        if ( last.isJump() )
+        {
+            board[( last.getEndRow() + last.getStartRow() ) / 2][( last.getEndCol() + last.getStartCol() ) / 2] = 'b';
+        }
+
+    }
+
+
     // for test purposes/ text based game
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
