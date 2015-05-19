@@ -21,9 +21,6 @@ public class NewGame extends JFrame
 
     GridPanel board;
 
-    CheckerBoard b;
-
-
     public NewGame()
     {
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -36,28 +33,34 @@ public class NewGame extends JFrame
         getContentPane().add( board );
         board.minCellSize = this.getHeight() / board.DEFAULT_CELL_COUNT;
         board.defaultCellSize = this.getHeight() / board.DEFAULT_CELL_COUNT;
+        
         pack();
+        addCheckers();
     }
 
 
     public void addCheckers()
     {
-        b.getBoard();
-        for ( int i = 0; i < b.getHeight(); i++ )
+       char[][] b = { { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+
+            { 'b', '.', 'b', '.', 'b', '.', 'b', '.' },
+            { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+            { ' ', '.', ' ', '.', ' ', '.', ' ', '.' },
+            { '.', ' ', '.', ' ', '.', ' ', '.', ' ' },
+            { 'r', '.', 'r', '.', 'r', '.', 'r', '.' },
+            { '.', 'r', '.', 'r', '.', 'r', '.', 'r' },
+            { 'r', '.', 'r', '.', 'r', '.', 'r', '.' } };
+        for ( int i = 0; i < b.length; i++ )
         {
-            for ( int j = 0; j < b.getWidth(); j++ )
+            for ( int j = 0; j < b[0].length; j++ )
             {
-                if ( b.getPos( i, j ) == 'b' )
+                if ( b[i][j] == 'b' )
                 {
-                    gr.put( new Location( i, j ), new Piece( board.minCellSize,
-                        board.minCellSize,
-                        Color.black ) );
+                    gr.put( new Location (i,j), new Piece (board.minCellSize, board.minCellSize, Color.black) );
                 }
-                else if ( b.getPos( i, j ) == 'r' )
+                else if (b[i][j]=='r')
                 {
-                    gr.put( new Location( i, j ), new Piece( board.minCellSize,
-                        board.minCellSize,
-                        Color.red ) );
+                    gr.put( new Location (i,j), new Piece (board.minCellSize, board.minCellSize, Color.red) );
                 }
             }
         }
