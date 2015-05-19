@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.LinkedList;
-import java.util.List;
 
 
 public class Game
@@ -14,82 +12,69 @@ public class Game
 
     public static final boolean RED = true;
 
-    List<MoveListener> listeners = new LinkedList<MoveListener>();
 
 
+    /**
+     * @param redP the red player object
+     * @param blackP the black player object
+     */
     public Game( Player redP, Player blackP )
     {
-        board = new CheckerBoard(this);
         red = redP;
         red.newGame( this, RED );
-        black = blackP;
+      
+        black = blackP;  
         black.newGame( this, !RED );
+        
+        board = new CheckerBoard( this );
+        while(!board.isGameOver())
+        {
+            Player c = board.isRedTurn()?red:black;
+            c.doMove();
+        }
+   
 
     }
 
 
+    /**
+     * Execute the Checkerboard's 
+     * @param move
+     * @return
+     */
     public boolean doMove( Move move )
     {
 
-        if ( !board.isLegal( move ) )
-        {
-            return false;
-        }
-        // TODO: board.doMove();
-        //
-        if ( move.isRed() )
-        {
-            red.doMove();
-        }
-        else
-        {
-            black.doMove();
-        }
-        if ( board.isGameOver() )
-        {
-            gameOver();
-        }
-        else
-            informListeners( move );
-
-        return true;
+        return board.doMove( move );
     }
 
 
-    public void addMoveListener( MoveListener m )
+
+
+    public boolean isRedTurn()
     {
-        listeners.add( m );
+        return board.isRedTurn();
     }
-
-
-    private void informListeners( Move m )
-    {
-        for ( MoveListener a : listeners )
-        {
-            a.moveHappened( m );
-        }
-    }
-
-
-    private void gameOver()
-    {
-        for ( MoveListener a : listeners )
-        {
-            a.gameOver();
-        }
-    }
-
-
     public CheckerBoard getBoard()
     {
         return board;
     }
 
-
+    @Override
+    public String toString()
+    {
+        if(board == null)
+        {
+            System.out.println("WHAT");
+        }
+        return board.toString();
+    }
+    
     public static void main( String[] args )
     {
-        Player a = new HumanPlayer( "Bob" );
-        Player b = new HumanPlayer( "Sally" );
+       System.out.println("GELLO");
+        Player a = new TextHumanPlayer( "Bob" );
+        Player b = new TextHumanPlayer( "Sally" );
         Game game = new Game( a, b );
     }
 
