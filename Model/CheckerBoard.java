@@ -594,6 +594,7 @@ public class CheckerBoard
             ret += '\n';
         }
         return ret;
+    }
 
 
     public int getHeight()
