@@ -21,9 +21,6 @@ public class NewGame extends JFrame
 
     GridPanel board;
 
-    char[][] b;
-
-
     public NewGame()
     {
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -36,16 +33,26 @@ public class NewGame extends JFrame
         getContentPane().add( board );
         board.minCellSize = this.getHeight() / board.DEFAULT_CELL_COUNT;
         board.defaultCellSize = this.getHeight() / board.DEFAULT_CELL_COUNT;
+        
         pack();
+        addCheckers();
     }
 
 
     public void addCheckers()
     {
-        b = CheckerBoard.this.getBoard();
+       char[][] b = { { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+
+            { 'b', '.', 'b', '.', 'b', '.', 'b', '.' },
+            { '.', 'b', '.', 'b', '.', 'b', '.', 'b' },
+            { ' ', '.', ' ', '.', ' ', '.', ' ', '.' },
+            { '.', ' ', '.', ' ', '.', ' ', '.', ' ' },
+            { 'r', '.', 'r', '.', 'r', '.', 'r', '.' },
+            { '.', 'r', '.', 'r', '.', 'r', '.', 'r' },
+            { 'r', '.', 'r', '.', 'r', '.', 'r', '.' } };
         for ( int i = 0; i < b.length; i++ )
         {
-            for ( int j = 0; j < b[0].length; i++ )
+            for ( int j = 0; j < b[0].length; j++ )
             {
                 if ( b[i][j] == 'b' )
                 {
@@ -64,7 +71,6 @@ public class NewGame extends JFrame
     public static void main( String[] args )
     {
         JFrame window = new NewGame();
-        
 
     }
 }
