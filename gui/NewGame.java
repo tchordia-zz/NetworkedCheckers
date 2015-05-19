@@ -1,5 +1,6 @@
 package gui;
 
+import info.gridworld.grid.Location;
 import info.gridworld.gui.DisplayMap;
 
 import java.awt.Color;
@@ -8,6 +9,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+
+import Model.CheckerBoard;
 
 
 public class NewGame extends JFrame
@@ -18,11 +21,14 @@ public class NewGame extends JFrame
 
     GridPanel board;
 
+    char[][] b;
+
 
     public NewGame()
     {
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         setVisible( true );
+
         setLayout( new GridLayout() );
         board = new GridPanel( map );
         board.setGrid( gr );
@@ -34,27 +40,31 @@ public class NewGame extends JFrame
     }
 
 
-    public void paint( Graphics g )
+    public void addCheckers()
     {
-        for ( int row = 0; row < 8; row++ )
+        b = CheckerBoard.this.getBoard();
+        for ( int i = 0; i < b.length; i++ )
         {
-            for ( int col = 0; col < 8; col++ )
+            for ( int j = 0; j < b[0].length; i++ )
             {
-                if ( row % 2 == col % 2 )
-                    g.setColor( Color.red );
-                else
-                    g.setColor( Color.gray );
-
-                g.fillRect( row * board.minCellSize, col* board.minCellSize, board.minCellSize, board.minCellSize );
+                if ( b[i][j] == 'b' )
+                {
+                    gr.put( new Location (i,j), new Piece (board.minCellSize, board.minCellSize, Color.black) );
+                }
+                else if (b[i][j]=='r')
+                {
+                    gr.put( new Location (i,j), new Piece (board.minCellSize, board.minCellSize, Color.red) );
+                }
             }
         }
+
     }
 
 
     public static void main( String[] args )
     {
         JFrame window = new NewGame();
-
+        
 
     }
 }

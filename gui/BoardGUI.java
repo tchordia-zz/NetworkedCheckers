@@ -55,37 +55,4 @@ public class BoardGUI
     }
 
 
-    public void createPiece()
-    {
-        if ( red == true )
-        {
-            pieces.add( new Piece( 0, 1, Color.RED ) );
-            pieces.add( new Piece( 0, 3, Color.RED ) );
-            pieces.add( new Piece( 0, 5, Color.RED ) );
-            pieces.add( new Piece( 0, 7, Color.RED ) );
-            pieces.add( new Piece( 1, 0, Color.RED ) );
-            pieces.add( new Piece( 1, 2, Color.RED ) );
-            pieces.add( new Piece( 1, 4, Color.RED ) );
-            pieces.add( new Piece( 1, 6, Color.RED ) );
-            pieces.add( new Piece( 2, 1, Color.RED ) );
-            pieces.add( new Piece( 2, 3, Color.RED ) );
-            pieces.add( new Piece( 2, 5, Color.RED ) );
-            pieces.add( new Piece( 2, 7, Color.RED ) );
-        }
-        else
-        {
-            pieces.add( new Piece( 0, 1, Color.BLACK ) );
-            pieces.add( new Piece( 0, 3, Color.BLACK ) );
-            pieces.add( new Piece( 0, 5, Color.BLACK ) );
-            pieces.add( new Piece( 0, 7, Color.BLACK ) );
-            pieces.add( new Piece( 1, 0, Color.BLACK ) );
-            pieces.add( new Piece( 1, 2, Color.BLACK ) );
-            pieces.add( new Piece( 1, 4, Color.BLACK ) );
-            pieces.add( new Piece( 1, 6, Color.BLACK ) );
-            pieces.add( new Piece( 2, 1, Color.BLACK ) );
-            pieces.add( new Piece( 2, 3, Color.BLACK ) );
-            pieces.add( new Piece( 2, 5, Color.BLACK ) );
-            pieces.add( new Piece( 2, 7, Color.BLACK ) );
-        }
-    }
 }

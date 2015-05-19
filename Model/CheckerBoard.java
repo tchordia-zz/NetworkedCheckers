@@ -57,7 +57,11 @@ public class CheckerBoard
         this.game = game;
     }
 
-
+    public char[][] getBoard()
+    {
+        return board;
+    }
+    
 
     protected boolean isGameOver()
     {
@@ -282,5 +286,7 @@ public class CheckerBoard
         // TODO MAKE MOVE PROCEDURE
         return true;
     }
+   
+    
 
 }
