@@ -54,5 +54,4 @@ public class BoardGUI
         return pieces;
     }
 
-
 }
