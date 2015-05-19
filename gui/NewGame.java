@@ -21,7 +21,7 @@ public class NewGame extends JFrame
 
     GridPanel board;
 
-    char[][] b;
+    CheckerBoard b;
 
 
     public NewGame()
@@ -42,18 +42,22 @@ public class NewGame extends JFrame
 
     public void addCheckers()
     {
-        b = CheckerBoard.this.getBoard();
-        for ( int i = 0; i < b.length; i++ )
+        b.getBoard();
+        for ( int i = 0; i < b.getHeight(); i++ )
         {
-            for ( int j = 0; j < b[0].length; i++ )
+            for ( int j = 0; j < b.getWidth(); j++ )
             {
-                if ( b[i][j] == 'b' )
+                if ( b.getPos( i, j ) == 'b' )
                 {
-                    gr.put( new Location (i,j), new Piece (board.minCellSize, board.minCellSize, Color.black) );
+                    gr.put( new Location( i, j ), new Piece( board.minCellSize,
+                        board.minCellSize,
+                        Color.black ) );
                 }
-                else if (b[i][j]=='r')
+                else if ( b.getPos( i, j ) == 'r' )
                 {
-                    gr.put( new Location (i,j), new Piece (board.minCellSize, board.minCellSize, Color.red) );
+                    gr.put( new Location( i, j ), new Piece( board.minCellSize,
+                        board.minCellSize,
+                        Color.red ) );
                 }
             }
         }
@@ -64,7 +68,6 @@ public class NewGame extends JFrame
     public static void main( String[] args )
     {
         JFrame window = new NewGame();
-        
 
     }
 }

@@ -22,6 +22,10 @@ public class CheckerBoard
     public static final char RED_KING = 'R';
 
     public static final char BLACK_KING = 'B';
+    
+    public final int x = 8;
+    
+    public final int y = 8;
 
     private int numRed;
 
@@ -32,7 +36,6 @@ public class CheckerBoard
     private int numBlackKings;
 
     private Stack<Move> moves;
-
 
     private Game game;
 
@@ -287,6 +290,18 @@ public class CheckerBoard
         return true;
     }
    
+    public int getWidth()
+    {
+        return x;
+    }
     
-
+    public int getHeight()
+    {
+        return y;
+    }
+    
+    public char getPos(int x, int y)
+    {
+        return board[x][y];
+    }
 }
