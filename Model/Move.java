@@ -14,7 +14,8 @@ public class Move
 
     private final boolean isRed;
 
-
+    private final boolean isLocal;
+    
     /**
      * @param startRow
      * @param startCol
@@ -35,6 +36,24 @@ public class Move
         this.endCol = endCol;
 
         this.isRed = isRed;
+        isLocal = true;
+    }
+   
+    public Move(
+        int startRow,
+        int startCol,
+        int endRow,
+        int endCol,
+        boolean isRed, boolean isLocal )
+    {
+
+        this.startRow = startRow;
+        this.startCol = startCol;
+        this.endRow = endRow;
+        this.endCol = endCol;
+
+        this.isRed = isRed;
+        this.isLocal = isLocal;
     }
     
     //For network purpose, construct move object from String sent over network
@@ -130,7 +149,13 @@ public class Move
         }
         return false;
     }
-
+    /**
+     * @return Returns the isLocal.
+     */
+    public boolean isLocal()
+    {
+        return isLocal;
+    }
 
     public boolean isKingMove()
     {
