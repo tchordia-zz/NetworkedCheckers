@@ -275,7 +275,7 @@ public class CheckerBoard
             }
         if ( ( board[m.getEndRow()][m.getEndCol()] != ' ' ) )
         {
-            System.out.println( "End square occupied" );
+//            System.out.println( "End square occupied" );
             return false;
         }
         if ( m.isKingMove() )
@@ -511,7 +511,7 @@ public class CheckerBoard
         moves.push( m );
         isGameOver();
 
-        System.out.println( this );
+//        System.out.println( this );
         return true;
     }
 

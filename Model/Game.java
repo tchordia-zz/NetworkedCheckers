@@ -65,14 +65,14 @@ public class Game
     {
         if(board == null)
         {
-            System.out.println("WHAT");
+            System.err.println("Board is null");
         }
         return board.toString();
     }
     
     public static void main( String[] args )
     {
-       System.out.println("GELLO");
+       
         Player a = new TextHumanPlayer( "Bob" );
         Player b = new TextHumanPlayer( "Sally" );
         Game game = new Game( a, b );
