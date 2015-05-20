@@ -97,6 +97,9 @@ public class CheckerBoard implements ChatDisplay
         // System.out.println( this );
 
     }
+    /**
+     * DO NOT USE
+     */
     protected CheckerBoard()
     {
         this(null);
@@ -201,7 +204,7 @@ public class CheckerBoard implements ChatDisplay
      */
     private ArrayList<Move> listJumpMoves( int row, int col )
     {
-        ArrayList<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<Move>();
         for ( int a = -2; a < 3; a += 4 )
         {
             for ( int b = -2; b < 3; b += 4 )
@@ -233,7 +236,7 @@ public class CheckerBoard implements ChatDisplay
      */
     private ArrayList<Move> listSimpleMoves( int row, int col )
     {
-        ArrayList<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<Move>();
         for ( int a = -1; a < 2; a += 2 )
         {
             for ( int b = -1; b < 2; b += 2 )
