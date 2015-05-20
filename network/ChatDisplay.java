@@ -39,7 +39,7 @@ public interface ChatDisplay
      * 
      * @param name The socket that was just created
      */
-    public void createSocket( SocketName name );
+    public void createSocket( SocketName name, boolean isRed );
 
     /**
      * Note the destruction of an existing socket and remove it from the user's

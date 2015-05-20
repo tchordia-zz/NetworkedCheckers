@@ -1,12 +1,16 @@
 package Model;
 
+
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 import java.util.Stack;
+
+import network.ChatConnectionHandler;
+import network.ChatDisplay;
+import network.SocketName;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -25,16 +29,20 @@ import javax.swing.JList;
  * @author Sources: TODO
  */
 
-public class CheckerBoard
+public class CheckerBoard implements ChatDisplay
 {
     char[][] board;
-
+  
+    public static final int port = 1337;
     HashSet<Point> redPieces = new HashSet<Point>();
 
     HashSet<Point> blackPieces = new HashSet<Point>();
 
     private boolean isRedTurn = true;
-
+    private boolean gameStarted = false;
+    private ChatConnectionHandler networker;
+    CheckerBoardGui gui;
+    private boolean isBoardRed;
     public static final char RED_CHECKER = 'r';
 
     public static final char BLACK_CHECKER = 'b';
@@ -87,10 +95,15 @@ public class CheckerBoard
      * @param game
      *            the game instance that created this checkerboard
      */
-    public CheckerBoard()
+    public CheckerBoard(CheckerBoardGui c)
     {
+
         connModel = new DefaultListModel();
         connections = new JList( connModel );
+
+        networker = new ChatConnectionHandler(this, port);
+        gui = c;
+
         board = initC;
         isRedTurn = true;
 
@@ -99,6 +112,13 @@ public class CheckerBoard
         initPieceList();
         // System.out.println( this );
 
+    }
+    /**
+     * DO NOT USE
+     */
+    protected CheckerBoard()
+    {
+        this(null);
     }
 
 
@@ -200,7 +220,7 @@ public class CheckerBoard
      */
     private ArrayList<Move> listJumpMoves( int row, int col )
     {
-        ArrayList<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<Move>();
         for ( int a = -2; a < 3; a += 4 )
         {
             for ( int b = -2; b < 3; b += 4 )
@@ -217,6 +237,11 @@ public class CheckerBoard
 
     }
 
+    public void startGame(boolean isBoardRed)
+    {
+        gameStarted = true;
+        this.isBoardRed = isBoardRed;
+    }
 
     /**
      * List all simple moves for a given square
@@ -227,7 +252,7 @@ public class CheckerBoard
      */
     private ArrayList<Move> listSimpleMoves( int row, int col )
     {
-        ArrayList<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<Move>();
         for ( int a = -1; a < 2; a += 2 )
         {
             for ( int b = -1; b < 2; b += 2 )
@@ -265,6 +290,10 @@ public class CheckerBoard
      */
     public boolean isLegal( Move m )
     {
+        if(!gameStarted)
+        {
+            return false;
+        }
         int sr = m.getStartRow();
         int sc = m.getStartCol();
         int er = m.getEndRow();
@@ -484,6 +513,10 @@ public class CheckerBoard
             System.out.println( "illegal move" );
             return false;
         }
+        if(m.isLocal())
+        {
+            networker.send( m.toString() );
+        }
         char a = board[m.getStartRow()][m.getStartCol()];
         board[m.getStartRow()][m.getStartCol()] = ' ';
         board[m.getEndRow()][m.getEndCol()] = a;
@@ -520,6 +553,7 @@ public class CheckerBoard
         isRedTurn = inCompoundMove ? isRedTurn : !isRedTurn;
         moves.push( m );
         isGameOver();
+        gui.doMove( m );
 
 //        System.out.println( this );
         return true;
@@ -569,6 +603,10 @@ public class CheckerBoard
 
     }
 
+    public char[][] getBoard()
+    {
+        return board;
+    }
 
     // for test purposes/ text based game
     /*
@@ -591,4 +629,41 @@ public class CheckerBoard
         return ret;
 
     }
+    /**
+     * @see ChatDisplay#createSocket
+     */
+    public synchronized void createSocket( SocketName name, boolean isRed)
+    {
+        connModel.addElement( name );
+    }
+    
+    public void statusMessage( String message )
+    {
+       
+    }
+
+    /**
+     * @see ChatDisplay#destroySocket
+     */
+    public void destroySocket( SocketName name )
+    {
+        if ( connModel.contains( name ) )
+        {
+            connModel.removeElement( name );
+        }
+    }
+    @Override
+    public void chatMessage( SocketName name, String message )
+    {
+        // TODO Auto-generated method stub
+        
+    }
+//    @Override
+//    public void createSocket( SocketName name, boolean isRed )
+//    {
+//        // TODO Auto-generated method stub
+//        
+//    }
+
+    
 }

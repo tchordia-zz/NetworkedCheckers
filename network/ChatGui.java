@@ -361,7 +361,7 @@ public class ChatGui extends JPanel implements ChatDisplay,
             }
             else
             {
-                networker.connect( sock );
+                networker.connect( sock, true );
             }
 
             host.setText( "" );
@@ -426,7 +426,7 @@ public class ChatGui extends JPanel implements ChatDisplay,
     /**
      * @see ChatDisplay#createSocket
      */
-    public synchronized void createSocket( SocketName name )
+    public synchronized void createSocket( SocketName name, boolean isRed )
     {
         connModel.addElement( name );
     }

@@ -55,14 +55,15 @@ public class Move
         this.isRed = isRed;
         this.isLocal = isLocal;
     }
+   
     
     //For network purpose, construct move object from String sent over network
- public static Move stringToMove(String s)
+ public static Move stringToMove(String s, boolean isLocal)
  {
      StringTokenizer a = new StringTokenizer( s,"," );
   
      try{
-     Move m = new Move(Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken())==1);
+     Move m = new Move(Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken()), Integer.parseInt(a.nextToken())==1, isLocal);
      return m;
      }
      catch(Exception e)

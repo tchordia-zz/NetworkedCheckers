@@ -99,13 +99,13 @@ public class ChatConnectionHandler extends Thread
      * 
      * @see spwan(SocketName, Socket)
      */
-    protected synchronized void spawn( Socket sock )
+    protected synchronized void spawn( Socket sock, boolean isRed )
     {
         SocketName name = new SocketName( sock.getInetAddress().toString(),
             sock.getPort(),
             "Incoming " + count );
         count++;
-        spawn( name, sock );
+        spawn( name, sock, isRed );
     }
 
 
@@ -244,7 +244,7 @@ public class ChatConnectionHandler extends Thread
                         {
                             Socket s = new Socket( receivePacket.getAddress(),
                                 portN );
-                            spawn( s );
+                            spawn( s , true);
                         }
 
                     }
@@ -280,7 +280,7 @@ public class ChatConnectionHandler extends Thread
      * @param sock
      *            The Socket to spawn listeners for
      */
-    protected void spawn( SocketName name, Socket sock )
+    protected void spawn( SocketName name, Socket sock, boolean isRed )
     {
         ChatSender cs = new ChatSender( display, name, sock );
         ChatReceiver cr = new ChatReceiver( display, name, sock );
@@ -288,7 +288,7 @@ public class ChatConnectionHandler extends Thread
         senders.put( name, cs );
         receivers.put( name, cr );
 
-        display.createSocket( name );
+        display.createSocket( name, isRed );
     }
 
 
@@ -306,7 +306,7 @@ public class ChatConnectionHandler extends Thread
             while ( true )
             {
                 Socket s = serverSocket.accept();
-                spawn( s );
+                spawn( s, false );
             }
 
         }
@@ -326,12 +326,12 @@ public class ChatConnectionHandler extends Thread
      * @param name
      *            The name and connection parameters of the socket to create
      */
-    public void connect( SocketName name )
+    public void connect( SocketName name, boolean isRed )
     {
         try
         {
             Socket sock = new Socket( name.getHost(), name.getPort() );
-            spawn( name, sock );
+            spawn( name, sock, isRed );
         }
         catch ( UnknownHostException e )
         {
