@@ -638,6 +638,7 @@ public class CheckerBoard implements ChatDisplay
     public synchronized void createSocket( SocketName name, boolean isRed)
     {
         connModel.addElement( name );
+        startGame(isRed);
     }
     
     public void statusMessage( String message )
