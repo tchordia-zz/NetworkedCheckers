@@ -474,6 +474,10 @@ public class CheckerBoard
             System.out.println( "illegal move" );
             return false;
         }
+        if(m.isLocal())
+        {
+            
+        }
         char a = board[m.getStartRow()][m.getStartCol()];
         board[m.getStartRow()][m.getStartCol()] = ' ';
         board[m.getEndRow()][m.getEndCol()] = a;
