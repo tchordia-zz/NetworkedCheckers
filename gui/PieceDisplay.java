@@ -23,9 +23,6 @@ import info.gridworld.gui.AbstractDisplay;
             AffineTransform.getScaleInstance(GRADIENT_SIZE, GRADIENT_SIZE);
 
         private Shape body;
-        private Shape shapes;
-        private double radius = 0;
-        private Color color;
 
         /**
          * Constructs an object that knows how to draw a piece.

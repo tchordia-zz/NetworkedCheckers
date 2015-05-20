@@ -18,11 +18,11 @@ public class Piece
      * @param color
      *            the color of the piece
      */
-    public Piece( int a, int b, Color c )
+    public Piece( Color c )
     {
         this.color = c;
-        x = a;
-        y = b;
+        x = 1;
+        y = 1;
     }
 
 
