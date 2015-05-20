@@ -1,5 +1,7 @@
 package Model;
 
+
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,6 +11,9 @@ import java.util.Stack;
 import network.ChatConnectionHandler;
 import network.ChatDisplay;
 import network.SocketName;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 
 /**
@@ -36,7 +41,7 @@ public class CheckerBoard implements ChatDisplay
     private boolean isRedTurn = true;
     private boolean gameStarted = false;
     private ChatConnectionHandler networker;
-    CheckerBoardGui guiBoard;
+    CheckerBoardGui gui;
     private boolean isBoardRed;
     public static final char RED_CHECKER = 'r';
 
@@ -78,6 +83,12 @@ public class CheckerBoard implements ChatDisplay
     private int currentCol = -1;
 
     private Stack<Move> moves;
+    
+    /** Data model for connections list */
+    protected DefaultListModel connModel;
+    
+    /** List of active connections */
+    protected JList connections;
 
 
     /**
@@ -86,8 +97,13 @@ public class CheckerBoard implements ChatDisplay
      */
     public CheckerBoard(CheckerBoardGui c)
     {
+
+        connModel = new DefaultListModel();
+        connections = new JList( connModel );
+
         networker = new ChatConnectionHandler(this, port);
-        guiBoard = c;
+        gui = c;
+
         board = initC;
         isRedTurn = true;
 
@@ -540,6 +556,7 @@ public class CheckerBoard implements ChatDisplay
         isRedTurn = inCompoundMove ? isRedTurn : !isRedTurn;
         moves.push( m );
         isGameOver();
+        gui.doMove( m );
 
 //        System.out.println( this );
         return true;
@@ -615,32 +632,41 @@ public class CheckerBoard implements ChatDisplay
         return ret;
 
     }
-    @Override
+    /**
+     * @see ChatDisplay#createSocket
+     */
+    public synchronized void createSocket( SocketName name, boolean isRed)
+    {
+        connModel.addElement( name );
+    }
+    
     public void statusMessage( String message )
     {
-        // TODO Auto-generated method stub
-        
+       
+    }
+
+    /**
+     * @see ChatDisplay#destroySocket
+     */
+    public void destroySocket( SocketName name )
+    {
+        if ( connModel.contains( name ) )
+        {
+            connModel.removeElement( name );
+        }
     }
     @Override
     public void chatMessage( SocketName name, String message )
     {
-        Move m = Move.stringToMove( message, false);
-        if(m!=null)
-        {
-           guiBoard.doMove( m );
-        }
-        
-    }
-    @Override
-    public void createSocket( SocketName name, boolean isRed )
-    {
-       startGame(isRed);
-        
-    }
-    @Override
-    public void destroySocket( SocketName name )
-    {
         // TODO Auto-generated method stub
         
     }
+//    @Override
+//    public void createSocket( SocketName name, boolean isRed )
+//    {
+//        // TODO Auto-generated method stub
+//        
+//    }
+
+    
 }
