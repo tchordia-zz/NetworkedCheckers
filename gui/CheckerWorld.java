@@ -113,6 +113,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
                 loc.getCol(),
                 game.isBoardRed() );
             game.doMove( m );
+            lastLoc = null;
         }
         return true;
     }
