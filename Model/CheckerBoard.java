@@ -3,10 +3,12 @@ package Model;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 import java.util.Stack;
+
+import network.ChatConnectionHandler;
+import network.ChatDisplay;
+import network.SocketName;
 
 
 /**
@@ -22,16 +24,20 @@ import java.util.Stack;
  * @author Sources: TODO
  */
 
-public class CheckerBoard
+public class CheckerBoard implements ChatDisplay
 {
     char[][] board;
-
+  
+    public static final int port = 1337;
     HashSet<Point> redPieces = new HashSet<Point>();
 
     HashSet<Point> blackPieces = new HashSet<Point>();
 
     private boolean isRedTurn = true;
-
+    private boolean gameStarted = false;
+    private ChatConnectionHandler networker;
+    CheckerBoardGui guiBoard;
+    private boolean isBoardRed;
     public static final char RED_CHECKER = 'r';
 
     public static final char BLACK_CHECKER = 'b';
@@ -78,9 +84,10 @@ public class CheckerBoard
      * @param game
      *            the game instance that created this checkerboard
      */
-    public CheckerBoard()
+    public CheckerBoard(CheckerBoardGui c)
     {
-
+        networker = new ChatConnectionHandler(this, port);
+        guiBoard = c;
         board = initC;
         isRedTurn = true;
 
@@ -89,6 +96,10 @@ public class CheckerBoard
         initPieceList();
         // System.out.println( this );
 
+    }
+    protected CheckerBoard()
+    {
+        this(null);
     }
 
 
@@ -207,6 +218,11 @@ public class CheckerBoard
 
     }
 
+    public void startGame(boolean isBoardRed)
+    {
+        gameStarted = true;
+        this.isBoardRed = isBoardRed;
+    }
 
     /**
      * List all simple moves for a given square
@@ -255,6 +271,10 @@ public class CheckerBoard
      */
     public boolean isLegal( Move m )
     {
+        if(!gameStarted)
+        {
+            return false;
+        }
         int sr = m.getStartRow();
         int sc = m.getStartCol();
         int er = m.getEndRow();
@@ -476,7 +496,7 @@ public class CheckerBoard
         }
         if(m.isLocal())
         {
-            
+            networker.send( m.toString() );
         }
         char a = board[m.getStartRow()][m.getStartCol()];
         board[m.getStartRow()][m.getStartCol()] = ' ';
@@ -563,6 +583,10 @@ public class CheckerBoard
 
     }
 
+    public char[][] getBoard()
+    {
+        return board;
+    }
 
     // for test purposes/ text based game
     /*
@@ -584,5 +608,33 @@ public class CheckerBoard
         }
         return ret;
 
+    }
+    @Override
+    public void statusMessage( String message )
+    {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public void chatMessage( SocketName name, String message )
+    {
+        Move m = Move.stringToMove( message, false);
+        if(m!=null)
+        {
+           guiBoard.doMove( m );
+        }
+        
+    }
+    @Override
+    public void createSocket( SocketName name, boolean isRed )
+    {
+       startGame(isRed);
+        
+    }
+    @Override
+    public void destroySocket( SocketName name )
+    {
+        // TODO Auto-generated method stub
+        
     }
 }
