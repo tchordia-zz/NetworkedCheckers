@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 
 /**
  * Class that represents a checkerboard. Implements the checkerboard as a 2d
@@ -72,6 +75,12 @@ public class CheckerBoard
     private int currentCol = -1;
 
     private Stack<Move> moves;
+    
+    /** Data model for connections list */
+    protected DefaultListModel connModel;
+    
+    /** List of active connections */
+    protected JList connections;
 
 
     /**
@@ -80,7 +89,8 @@ public class CheckerBoard
      */
     public CheckerBoard()
     {
-
+        connModel = new DefaultListModel();
+        connections = new JList( connModel );
         board = initC;
         isRedTurn = true;
 
