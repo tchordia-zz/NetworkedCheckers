@@ -36,7 +36,7 @@ public class CheckerBoard implements ChatDisplay
     private boolean isRedTurn = true;
     private boolean gameStarted = false;
     private ChatConnectionHandler networker;
-    CheckerBoardGui guiBoard;
+    CheckerBoardGui gui;
     private boolean isBoardRed;
     public static final char RED_CHECKER = 'r';
 
@@ -87,7 +87,7 @@ public class CheckerBoard implements ChatDisplay
     public CheckerBoard(CheckerBoardGui c)
     {
         networker = new ChatConnectionHandler(this, port);
-        guiBoard = c;
+        gui = c;
         board = initC;
         isRedTurn = true;
 
@@ -534,6 +534,7 @@ public class CheckerBoard implements ChatDisplay
         isRedTurn = inCompoundMove ? isRedTurn : !isRedTurn;
         moves.push( m );
         isGameOver();
+        gui.doMove( m );
 
 //        System.out.println( this );
         return true;
@@ -612,7 +613,7 @@ public class CheckerBoard implements ChatDisplay
     @Override
     public void statusMessage( String message )
     {
-        // TODO Auto-generated method stub
+        System.err.println(message);
         
     }
     @Override
@@ -621,7 +622,7 @@ public class CheckerBoard implements ChatDisplay
         Move m = Move.stringToMove( message, false);
         if(m!=null)
         {
-           guiBoard.doMove( m );
+           gui.doMove( m );
         }
         
     }
