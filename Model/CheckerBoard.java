@@ -133,7 +133,10 @@ public class CheckerBoard implements ChatDisplay
 
     }
 
-
+    public boolean isBoardRed()
+    {
+        return isBoardRed;
+    }
     /**
      * 
      * @return total number of black pieces
