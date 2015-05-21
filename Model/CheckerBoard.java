@@ -242,6 +242,10 @@ public class CheckerBoard implements ChatDisplay
         gameStarted = true;
         this.isBoardRed = isBoardRed;
     }
+    public void endGame()
+    {
+        gameStarted = false;
+    }
 
     /**
      * List all simple moves for a given square
@@ -629,12 +633,14 @@ public class CheckerBoard implements ChatDisplay
         return ret;
 
     }
+  
     /**
      * @see ChatDisplay#createSocket
      */
     public synchronized void createSocket( SocketName name, boolean isRed)
     {
         connModel.addElement( name );
+        startGame(isRed);
     }
     
     public void statusMessage( String message )
@@ -651,6 +657,8 @@ public class CheckerBoard implements ChatDisplay
         {
             connModel.removeElement( name );
         }
+        endGame();
+        
     }
     @Override
     public void chatMessage( SocketName name, String message )
