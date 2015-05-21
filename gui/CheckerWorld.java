@@ -54,13 +54,15 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         this.game = new CheckerBoard( this );
         lock = new Semaphore( 0 );
         playerLocation = null;
-        setMessage( "Othello - You are blue.  Click a cell to play." );
+        setMessage( "Checkers: not connected to other player" );
 
         System.setProperty( "info.gridworld.gui.selection", "hide" );
         System.setProperty( "info.gridworld.gui.tooltips", "hide" );
         System.setProperty( "info.gridworld.gui.watermark", "hide" );
+        BoundedGrid<Piece> a = new BoundedGrid<Piece>(8,8);
 
         updateCheckers();
+        
     }
 
 
@@ -82,6 +84,10 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
                 else if ( b[x][y] == 'r' )
                 {
                     add( new Location( x, y ), new Piece( Color.RED ) );
+                }
+                else
+                {
+                    remove( new Location(x,y) );
                 }
             }
         }

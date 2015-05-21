@@ -2,18 +2,20 @@ package Model;
 
 
 
+import gui.CheckerWorld;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 import network.ChatConnectionHandler;
 import network.ChatDisplay;
 import network.SocketName;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
 
 
 /**
@@ -41,7 +43,7 @@ public class CheckerBoard implements ChatDisplay
     private boolean isRedTurn = true;
     private boolean gameStarted = false;
     private ChatConnectionHandler networker;
-    CheckerBoardGui gui;
+    CheckerWorld gui;
     private boolean isBoardRed;
     public static final char RED_CHECKER = 'r';
 
@@ -95,7 +97,7 @@ public class CheckerBoard implements ChatDisplay
      * @param game
      *            the game instance that created this checkerboard
      */
-    public CheckerBoard(CheckerBoardGui c)
+    public CheckerBoard(CheckerWorld c)
     {
 
         connModel = new DefaultListModel();
@@ -244,6 +246,7 @@ public class CheckerBoard implements ChatDisplay
     {
         gameStarted = true;
         this.isBoardRed = isBoardRed;
+        gui.setMessage( "Game Started: you are " + (isBoardRed?"red":"black") );
     }
     public void endGame()
     {
