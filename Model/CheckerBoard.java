@@ -304,6 +304,7 @@ public class CheckerBoard implements ChatDisplay
         {
             return false;
         }
+        System.out.println("herro"  + m.isRed() + " " + isRed( m.getStartRow(), m.getStartCol() ) );
         int sr = m.getStartRow();
         int sc = m.getStartCol();
         int er = m.getEndRow();
@@ -314,6 +315,10 @@ public class CheckerBoard implements ChatDisplay
         if ( m.isRed() != isRed( m.getStartRow(), m.getStartCol() ) )
         {
             System.out.println( "not your piece" );
+            return false;
+        }
+        if(m.isRed() != isRedTurn)
+        {
             return false;
         }
         if ( m.isRed() == isBlack( sr, sc ) )
@@ -564,7 +569,7 @@ public class CheckerBoard implements ChatDisplay
         moves.push( m );
         isGameOver();
         gui.doMove( m );
-
+        System.out.println(toString());
 //        System.out.println( this );
         return true;
     }
