@@ -8,12 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 import network.ChatConnectionHandler;
 import network.ChatDisplay;
 import network.SocketName;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
 
 
 /**
@@ -562,6 +562,7 @@ public class CheckerBoard implements ChatDisplay
         return true;
     }
 
+    
 
     public boolean hasJumps( int row, int col )
     {
@@ -669,5 +670,28 @@ public class CheckerBoard implements ChatDisplay
 //        
 //    }
 
+    public void connect(String name)
+    {
+        try
+        {
+            SocketName sock = new SocketName( name,
+                1337, "Other Player" );
+
+            try{
+            networker.connect( sock, true );
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
+          
+        }
+        catch ( IllegalArgumentException iae )
+        {
+            statusMessage( "Cannot connect: " + iae.getMessage() );
+        }
+
+    }
     
 }

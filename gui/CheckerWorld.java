@@ -1,12 +1,15 @@
 package gui;
 
-import info.gridworld.world.World;
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Location;
+import info.gridworld.world.World;
 
 import java.awt.Color;
 import java.util.concurrent.Semaphore;
 
+import javax.swing.JOptionPane;
+
+import network.SocketName;
 import Model.CheckerBoard;
 import Model.CheckerBoardGui;
 import Model.Move;
@@ -61,8 +64,12 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         System.setProperty( "info.gridworld.gui.watermark", "hide" );
 
         updateCheckers();
+        String inputValue = JOptionPane.showInputDialog("Please input a value");
+        game.connect(inputValue);
+        
     }
 
+    
 
     /**
      * TODO Write your method description here.
@@ -82,6 +89,10 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
                 else if ( b[x][y] == 'r' )
                 {
                     add( new Location( x, y ), new Piece( Color.RED ) );
+                }
+                else
+                {
+                    remove(new Location(x,y));
                 }
             }
         }
