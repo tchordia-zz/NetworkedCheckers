@@ -675,7 +675,7 @@ public class CheckerBoard implements ChatDisplay
     @Override
     public void chatMessage( SocketName name, String message )
     {
-        // TODO Auto-generated method stub
+       doMove(Move.stringToMove( message, false));
         
     }
 //    @Override
