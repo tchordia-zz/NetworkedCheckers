@@ -26,13 +26,9 @@ public class MJUnit
         new Move( 2, 1, 3, 2, false ), new Move( 5, 2, 4, 3, true ),
         new Move( 3, 2, 5, 0, false ) };
 
-    private final int[][] b1 = { { 5, 2, 4, 3 }, { 2, 1, 3, 2 }, {4,3,2,1} };
-    
-    private final int[][] b2 = { { 5, 2, 4, 3 }, { 2, 1, 3, 2 }};
+    private final int[][] b1 = { { 5, 2, 4, 3 }, { 2, 1, 3, 2 }, { 4, 3, 2, 1 } };
 
-
-   
-
+    private final int[][] b2 = { { 5, 2, 4, 3 }, { 2, 1, 3, 2 } };
 
 
     private List<Move> g( int[][] mat )
@@ -48,13 +44,15 @@ public class MJUnit
         }
         return m;
     }
-    private CheckerBoard ib(int[][] mat)
+
+
+    private CheckerBoard ib( int[][] mat )
     {
         CheckerBoard c = new CheckerBoard();
-        List<Move> a = g(mat);
-        for(Move b:a)
+        List<Move> a = g( mat );
+        for ( Move b : a )
         {
-            c.doMove(b);
+            c.doMove( b );
         }
         return c;
     }
@@ -97,9 +95,9 @@ public class MJUnit
     {
         CheckerBoard c = new CheckerBoard();
         assertTrue( c.getNumBlack() == 12 );
-        c = ib(b1);
-        assertTrue(c.getNumBlack() == 11);
-        
+        c = ib( b1 );
+        assertTrue( c.getNumBlack() == 11 );
+
     }
 
 
@@ -109,7 +107,10 @@ public class MJUnit
     @Test
     public void testIsGameOver()
     {
-        fail( "Not yet implemented" );
+        CheckerBoard c = new CheckerBoard();
+
+        assertTrue( c.getNumBlack() == 0 );
+        assertTrue( c.getNumRed() == 0 );
     }
 
 
@@ -139,11 +140,11 @@ public class MJUnit
     @Test
     public void testHasJumps()
     {
-        CheckerBoard c = ib(b2);
-        System.out.println(c);
-        assertTrue( c.hasJumps(1,2) );
-        assertTrue(!c.hasJumps( 2, 3 ));
-        assertTrue(!c.hasJumps( 2, 1 ));
+        CheckerBoard c = ib( b2 );
+        System.out.println( c );
+        assertTrue( c.hasJumps( 1, 2 ) );
+        assertTrue( !c.hasJumps( 2, 3 ) );
+        assertTrue( !c.hasJumps( 2, 1 ) );
 
     }
 
@@ -154,8 +155,8 @@ public class MJUnit
     @Test
     public void testIsRedTurn()
     {
-        CheckerBoard c = ib(b1);
-        assertTrue(!c.isRedTurn());
+        CheckerBoard c = ib( b1 );
+        assertTrue( !c.isRedTurn() );
     }
 
 
@@ -167,7 +168,5 @@ public class MJUnit
     {
         fail( "Not yet implemented" );
     }
-
-
 
 }
