@@ -109,8 +109,7 @@ public class MJUnit
     {
         CheckerBoard c = new CheckerBoard();
 
-        assertTrue( c.getNumBlack() == 0 );
-        assertTrue( c.getNumRed() == 0 );
+        assertTrue( c.getNumBlack() == 0 || c.getNumRed() == 0 );
     }
 
 
@@ -142,7 +141,7 @@ public class MJUnit
     {
         CheckerBoard c = ib( b2 );
         System.out.println( c );
-        assertTrue( c.hasJumps( 1, 2 ) );
+        assertTrue( c.hasJumps( 5, 2 ) );
         assertTrue( !c.hasJumps( 2, 3 ) );
         assertTrue( !c.hasJumps( 2, 1 ) );
 
@@ -166,7 +165,13 @@ public class MJUnit
     @Test
     public void testInCompoundMove()
     {
-        fail( "Not yet implemented" );
+        int[][] m = { { 5, 2, 4, 1 }, { 2, 7, 3, 6 }, { 4, 1, 3, 0 },
+            { 1, 6, 2, 7 }, { 5, 0, 4, 1 }, { 2, 3, 3, 4 }, { 6, 3, 5, 2 },
+            { 3, 4, 4, 3 }, { 5, 2, 3, 4 }, { 3, 4, 1, 6 } };
+
+        CheckerBoard c = ib( m );
+        assertTrue( c.hasJumps( 5, 2 ) );
+        assertTrue( c.hasJumps( 3, 4 ) );
     }
 
 }
