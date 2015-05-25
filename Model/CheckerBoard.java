@@ -602,6 +602,11 @@ public class CheckerBoard implements ChatDisplay
             System.out.println( "end row " );
             System.out.println( "In jump" );
 
+            if(inCompoundMove)
+            {
+                currentRow = er;
+                currentCol = ec;
+            }
             if ( hasJumps( er, ec ) )
             {
                 inCompoundMove = true;
