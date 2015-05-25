@@ -50,7 +50,11 @@ public class Game
 
 
 
-
+/**
+ * 
+ * TODO Write your method description here.
+ * @return
+ */
     public boolean isRedTurn()
     {
         return board.isRedTurn();
@@ -59,7 +63,9 @@ public class Game
     {
         return board;
     }
-
+/**
+ * toString converts board array list into a string
+ */
     @Override
     public String toString()
     {
@@ -69,7 +75,11 @@ public class Game
         }
         return board.toString();
     }
-    
+    /**
+     * 
+     * main method to test between two players.
+     * @param args
+     */
     public static void main( String[] args )
     {
        

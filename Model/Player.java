@@ -16,20 +16,32 @@ public abstract class Player
     private int numDraws = 0;
     
 
-
+/**
+ * sets player's username
+ * @param username
+ */
     public Player( String username )
     {
         this.username = username;
 
     }
 
-
+/**
+ * 
+ * returns if player is red.
+ * @return
+ */
     public boolean isRed()
     {
         return isRed;
     }
 
-
+/**
+ * 
+ * declares new game and sets turn to red player.
+ * @param g
+ * @param isRed
+ */
     public void newGame( Game g, boolean isRed )
     {
         currentGame = g;
@@ -41,6 +53,11 @@ public abstract class Player
 //            moveHappened(Move.firstMove());
 //        }
     }
+    /**
+     * checks to see who won and lost when game is over.
+     * TODO Write your method description here.
+     * @param isRedWinner
+     */
     public void gameOver(boolean isRedWinner)
     {
        currentGame = null;
@@ -49,12 +66,26 @@ public abstract class Player
        else
            numLosses++;
     }
+    /**
+     * 
+     * doMove abstract method
+     */
     public abstract void doMove();
 
+    /**
+     * 
+     * returns true if current game is not null.
+     * @return
+     */
     public boolean inGame()
     {
         return currentGame!=null;
     }
+    /**
+     * 
+     * return current game.
+     * @return
+     */
     public Game getGame()
     {
         return currentGame;

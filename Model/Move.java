@@ -17,10 +17,12 @@ public class Move
     private final boolean isLocal;
     
     /**
+     * move constructor assuming local
      * @param startRow
      * @param startCol
      * @param endRow
      * @param endCol
+     * @param isRed
      */
     public Move(
         int startRow,
@@ -38,7 +40,15 @@ public class Move
         this.isRed = isRed;
         isLocal = true;
     }
-   
+   /**
+    * Constructor to check if local
+    * @param startRow
+    * @param startCol
+    * @param endRow
+    * @param endCol
+    * @param isRed
+    * @param isLocal
+    */
     public Move(
         int startRow,
         int startCol,
@@ -56,8 +66,13 @@ public class Move
         this.isLocal = isLocal;
     }
    
-    
-    //For network purpose, construct move object from String sent over network
+    /**
+     * 
+     * For network purpose, construct move object from String sent over network
+     * @param s
+     * @param isLocal
+     * @return
+     */
  public static Move stringToMove(String s, boolean isLocal)
  {
      StringTokenizer a = new StringTokenizer( s,"," );
