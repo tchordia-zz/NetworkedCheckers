@@ -553,6 +553,7 @@ public class CheckerBoard implements ChatDisplay
         }
         if ( m.isLocal() )
         {
+            System.out.println("send not local move " + m);
             networker.send( m.toString() );
         }
         char a = board[m.getStartRow()][m.getStartCol()];
