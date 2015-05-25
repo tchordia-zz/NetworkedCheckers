@@ -36,7 +36,6 @@ public class MJUnit
         {
             m.add( new Move( a[0], a[1], a[2], a[3], b ) );
             b = !b;
-
         }
         return m;
     }

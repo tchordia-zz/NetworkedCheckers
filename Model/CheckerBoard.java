@@ -239,7 +239,12 @@ public class CheckerBoard implements ChatDisplay
         {
             for ( int b = -2; b < 3; b += 4 )
             {
-                Move m = new Move( row, col, row + a, col + b, isRed( row, col ), isRed(row,col) == isBoardRed );
+                Move m = new Move( row,
+                    col,
+                    row + a,
+                    col + b,
+                    isRed( row, col ),
+                    isRed( row, col ) == isBoardRed );
                 if ( isLegal( m ) )
                 {
                     moves.add( m );
@@ -281,7 +286,12 @@ public class CheckerBoard implements ChatDisplay
         {
             for ( int b = -1; b < 2; b += 2 )
             {
-                Move m = new Move( row, col, row + a, col + b, isRed( row, col ),  isRed(row,col) == isBoardRed );
+                Move m = new Move( row,
+                    col,
+                    row + a,
+                    col + b,
+                    isRed( row, col ),
+                    isRed( row, col ) == isBoardRed );
                 if ( isLegal( m ) )
                 {
                     moves.add( m );
@@ -304,7 +314,7 @@ public class CheckerBoard implements ChatDisplay
     {
         return ( 0 <= eRow && eRow < board.length && 0 <= eCol && eCol < board[0].length );
     }
-    
+
 
     /**
      * checks if a move is legal.
@@ -314,13 +324,13 @@ public class CheckerBoard implements ChatDisplay
      */
     public boolean isLegal( Move m )
     {
-        
+
         if ( !gameStarted )
         {
             return false;
         }
-//        System.out.println( "herro" + m.isRed() + " "
-//            + isRed( m.getStartRow(), m.getStartCol() ) );
+        // System.out.println( "herro" + m.isRed() + " "
+        // + isRed( m.getStartRow(), m.getStartCol() ) );
         int sr = m.getStartRow();
         int sc = m.getStartCol();
         int er = m.getEndRow();
@@ -335,12 +345,12 @@ public class CheckerBoard implements ChatDisplay
         }
         if ( m.isLocal() && ( isBoardRed() != m.isRed() ) )
         {
-            System.out.println("local, but not board color");
+            System.out.println( "local, but not board color" );
             return false;
         }
         if ( !m.isLocal() && ( isBoardRed() == m.isRed() ) )
         {
-            System.out.println("not local, but board color");
+            System.out.println( "not local, but board color" );
 
             return false;
         }
@@ -478,13 +488,20 @@ public class CheckerBoard implements ChatDisplay
             if ( Character.isUpperCase( board[row][col] ) )
             {
                 a = -a;
-                for ( int b = -1; b < 2; b += 2 )
+                try
                 {
-                    if ( board[row + a][col + b] == oLet
-                        && board[row + 2 * a][col + 2 * b] == ' ' )
+                    for ( int b = -1; b < 2; b += 2 )
                     {
-                        return true;
+                        if ( board[row + a][col + b] == oLet
+                            && board[row + 2 * a][col + 2 * b] == ' ' )
+                        {
+                            return true;
+                        }
                     }
+                }
+                catch ( ArrayIndexOutOfBoundsException e )
+                {
+
                 }
             }
         }
@@ -542,7 +559,7 @@ public class CheckerBoard implements ChatDisplay
      */
     public boolean doMove( Move m )
     {
-        System.out.println("compound move " + inCompoundMove);
+        System.out.println( "compound move " + inCompoundMove );
         int sr = m.getStartRow();
         int sc = m.getStartCol();
         int er = m.getEndRow();
@@ -558,7 +575,7 @@ public class CheckerBoard implements ChatDisplay
         }
         if ( m.isLocal() )
         {
-            System.out.println("send not local move " + m);
+            System.out.println( "send not local move " + m );
             networker.send( m.toString() );
         }
         char a = board[m.getStartRow()][m.getStartCol()];
@@ -571,9 +588,9 @@ public class CheckerBoard implements ChatDisplay
         {
             board[( sr + er ) / 2][( sc + ec ) / 2] = ' ';
             oset.remove( new Point( ( sr + er ) / 2, ( sc + ec ) / 2 ) );
-            System.out.println("end row ");
-            System.out.println("In jump");
-            
+            System.out.println( "end row " );
+            System.out.println( "In jump" );
+
             if ( hasJumps( er, ec ) )
             {
                 inCompoundMove = true;
@@ -602,7 +619,7 @@ public class CheckerBoard implements ChatDisplay
         System.out.println( moves );
         isGameOver();
         gui.doMove( m );
-        System.out.println("compound move at End" + inCompoundMove);
+        System.out.println( "compound move at End" + inCompoundMove );
 
         System.out.println( toString() );
         // System.out.println( this );
@@ -612,7 +629,7 @@ public class CheckerBoard implements ChatDisplay
 
     public boolean hasJumps( int row, int col )
     {
-        System.out.println("hello" + listJumpMoves( row, col ));
+        System.out.println( "hello" + listJumpMoves( row, col ) );
         return listJumpMoves( row, col ).size() != 0;
     }
 
@@ -717,7 +734,8 @@ public class CheckerBoard implements ChatDisplay
     @Override
     public void chatMessage( SocketName name, String message )
     {
-        System.out.println( "line in checkerboard" +  Move.stringToMove( message, false ) );
+        System.out.println( "line in checkerboard"
+            + Move.stringToMove( message, false ) );
         doMove( Move.stringToMove( message, false ) );
 
     }
