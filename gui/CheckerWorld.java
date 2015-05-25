@@ -59,6 +59,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         System.setProperty( "info.gridworld.gui.selection", "hide" );
         System.setProperty( "info.gridworld.gui.tooltips", "hide" );
         System.setProperty( "info.gridworld.gui.watermark", "hide" );
+        
         BoundedGrid<Piece> a = new BoundedGrid<Piece>(8,8);
 
         updateCheckers();

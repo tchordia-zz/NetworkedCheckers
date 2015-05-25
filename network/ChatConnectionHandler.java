@@ -104,7 +104,6 @@ public class ChatConnectionHandler extends Thread
         SocketName name = new SocketName( sock.getInetAddress().toString(),
             sock.getPort(),
             "Incoming " + count );
-        System.out.println("inSpawn");
         count++;
         spawn( name, sock, isRed );
     }
@@ -288,7 +287,7 @@ public class ChatConnectionHandler extends Thread
 
         senders.put( name, cs );
         receivers.put( name, cr );
-        
+
         display.createSocket( name, isRed );
     }
 
