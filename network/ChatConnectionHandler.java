@@ -1,4 +1,5 @@
 package network;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -48,7 +49,9 @@ public class ChatConnectionHandler extends Thread
 
     /** Count of incoming connections (used for unique naming) */
     protected int count = 1;
+
     int portN = 1337;
+
     Thread dThread;
 
 
@@ -73,7 +76,7 @@ public class ChatConnectionHandler extends Thread
 
         dThread = new Thread( DiscoveryThread.getInstance() );
 
-        dThread.start();
+//        dThread.start();
         // udpConnect();
         try
         {
@@ -237,14 +240,26 @@ public class ChatConnectionHandler extends Thread
                         // your controller)
 
                         receivePacket.getAddress();
-                        System.out.println( InetAddress.getLocalHost());
-                        System.out.println(receivePacket.getAddress());
-                        System.out.println(InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") ));
-                        if (!receivePacket.getAddress().toString().trim().equals(InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") ).trim()) )
+                        System.out.println( InetAddress.getLocalHost() );
+                        System.out.println( receivePacket.getAddress() );
+                        System.out.println( InetAddress.getLocalHost()
+                            .toString()
+                            .substring( InetAddress.getLocalHost()
+                                .toString()
+                                .indexOf( "/" ) ) );
+                        if ( !receivePacket.getAddress()
+                            .toString()
+                            .trim()
+                            .equals( InetAddress.getLocalHost()
+                                .toString()
+                                .substring( InetAddress.getLocalHost()
+                                    .toString()
+                                    .indexOf( "/" ) )
+                                .trim() ) )
                         {
                             Socket s = new Socket( receivePacket.getAddress(),
                                 portN );
-                            spawn( s , true);
+                            spawn( s, true );
                         }
 
                     }
@@ -257,10 +272,8 @@ public class ChatConnectionHandler extends Thread
                 catch ( IOException ex )
                 {
 
-                     Logger.getLogger( ChatConnectionHandler.class.getName() ).log(
-                     Level.SEVERE,
-                     null,
-                     ex );
+                    Logger.getLogger( ChatConnectionHandler.class.getName() )
+                        .log( Level.SEVERE, null, ex );
 
                 }
             }
@@ -302,11 +315,12 @@ public class ChatConnectionHandler extends Thread
         // listen until we quit
         try
         {
-            udpConnect();
+//            udpConnect();
             while ( true )
             {
                 Socket s = serverSocket.accept();
-                spawn( s, false );
+                if ( receivers.isEmpty() )
+                    spawn( s, false );
             }
 
         }
