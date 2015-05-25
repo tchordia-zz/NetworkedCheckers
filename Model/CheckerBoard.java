@@ -200,7 +200,7 @@ public class CheckerBoard implements ChatDisplay
         }
         for ( Point loc : myList )
         {
-            if ( listSimpleMoves( loc.x, loc.y ).size() != 0 )
+            if ( listOneStepMoves( loc.x, loc.y ).size() != 0 )
             {
                 return false;
             }
@@ -632,6 +632,9 @@ public class CheckerBoard implements ChatDisplay
 
         System.out.println( toString() );
         // System.out.println( this );
+        System.out.println("my set, then other set");
+        System.out.println(myset);
+        System.out.println(oset);
         return true;
     }
 
