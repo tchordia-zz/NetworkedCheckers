@@ -73,11 +73,11 @@ public class ChatConnectionHandler extends Thread
         receivers = new HashMap();
 
         display = cd;
-
-        dThread = new Thread( DiscoveryThread.getInstance() );
-
-        dThread.start();
-         udpConnect();
+//
+//        dThread = new Thread( DiscoveryThread.getInstance() );
+//
+//        dThread.start();
+//         udpConnect();
         try
         {
             serverSocket = new ServerSocket( p );
@@ -315,7 +315,7 @@ public class ChatConnectionHandler extends Thread
         // listen until we quit
         try
         {
-            udpConnect();
+//            udpConnect();
             while ( true )
             {
                 Socket s = serverSocket.accept();

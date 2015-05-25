@@ -68,8 +68,8 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 
         updateCheckers();
 
-//        String inputValue = JOptionPane.showInputDialog("Please input a value");
-//        game.connect(inputValue);
+        String inputValue = JOptionPane.showInputDialog("Please input a value");
+        game.connect(inputValue);
 
     }
 
