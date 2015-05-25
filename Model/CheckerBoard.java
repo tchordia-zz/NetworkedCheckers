@@ -274,6 +274,12 @@ public class CheckerBoard implements ChatDisplay
     public void endGame()
     {
         gameStarted = false;
+        board = initC;
+        isRedTurn = true;
+
+        moves = new Stack<Move>();
+
+        initPieceList();
     }
 
 

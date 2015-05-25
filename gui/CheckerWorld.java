@@ -250,14 +250,13 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
             updateCheckers();
         else
         {
+            updateCheckers();
             int inputValue = JOptionPane.showConfirmDialog( null, "Reset game?" );
             if ( inputValue == JOptionPane.OK_OPTION )
             {
                 boolean a = game.isBoardRed();
-                game.destroySocket((SocketName)(game.getConnModel().firstElement()));
-                game = null;
-                game = new CheckerBoard( this );
-                game.startGame( a);
+                game.endGame();
+                game.startGame(a);
                 
             }
         }
