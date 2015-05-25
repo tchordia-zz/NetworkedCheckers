@@ -583,7 +583,8 @@ public class CheckerBoard implements ChatDisplay
         board[m.getEndRow()][m.getEndCol()] = a;
         myset.remove( new Point( sr, sc ) );
         myset.add( new Point( er, ec ) );
-        if ( er == 0 || er == board.length ) // if the move ends in the end row,
+        if ( er == 0 || er == board.length - 1 ) // if the move ends in the end
+                                                 // row,
         // king the piece
         {
             board[er][ec] = Character.toUpperCase( board[er][ec] );
