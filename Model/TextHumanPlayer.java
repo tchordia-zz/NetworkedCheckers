@@ -1,13 +1,25 @@
 package Model;
 
 import java.util.Scanner;
-
+/**
+ * 
+ *  For testing purposes.
+ *
+ *  @author  Archita
+ *  @version May 25, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
+ *
+ */
 
 public class TextHumanPlayer extends Player
 {
     Scanner scan;
 
-
+/**
+ * Constructor to contact human player.
+ * @param username
+ */
     public TextHumanPlayer( String username )
     {
 
@@ -15,7 +27,9 @@ public class TextHumanPlayer extends Player
         scan = new Scanner( System.in );
     }
 
-
+/**
+ * doMove changes the arraylist with new checkers placement
+ */
     @Override
     public void doMove()
     {
