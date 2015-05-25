@@ -280,6 +280,8 @@ public class CheckerBoard implements ChatDisplay
         moves = new Stack<Move>();
 
         initPieceList();
+        gui.updateCheckers();
+        System.out.println(this);
     }
 
 
