@@ -94,6 +94,16 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
                 {
                     add( new Location( x, y ), new Piece( Color.RED ) );
                 }
+                else if( b[x][y] == 'R' )
+                {
+                    add( new Location( x, y ), new Piece( Color.PINK ) );
+
+                }
+                else if( b[x][y] == 'B' )
+                {
+                    add( new Location( x, y ), new Piece( Color.GRAY ) );
+
+                }
                 else
                 {
 
