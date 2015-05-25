@@ -120,6 +120,10 @@ public class CheckerBoard implements ChatDisplay
 
     }
 
+    public DefaultListModel getConnModel()
+    {
+        return connModel;
+    }
 
     /**
      * DO NOT USE
@@ -263,6 +267,7 @@ public class CheckerBoard implements ChatDisplay
         this.isBoardRed = isBoardRed;
         gui.setMessage( "Game Started: you are "
             + ( isBoardRed ? "red" : "black" ) );
+        gui.updateCheckers();
     }
 
 
