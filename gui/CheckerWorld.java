@@ -252,6 +252,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         {
             updateCheckers();
             int inputValue = JOptionPane.showConfirmDialog( null, "Reset game?" );
+            System.out.println("INPUT VALUE" + inputValue);
             if ( inputValue == JOptionPane.OK_OPTION )
             {
                 boolean a = game.isBoardRed();

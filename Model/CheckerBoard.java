@@ -109,8 +109,8 @@ public class CheckerBoard implements ChatDisplay
 
         networker = new ChatConnectionHandler( this, port );
         gui = c;
-
-        board = initC;
+ 
+        resetBoard();
         isRedTurn = true;
 
         moves = new Stack<Move>();
@@ -120,10 +120,26 @@ public class CheckerBoard implements ChatDisplay
 
     }
 
+
+    private void resetBoard()
+    {
+        board = new char[initC.length][initC.length];
+
+        for ( int r = 0; r < board.length; r++ )
+        {
+            for ( int col = 0; col < board.length; col++ )
+            {
+                board[r][col] = initC[r][col];
+            }
+        }
+    }
+
+
     public DefaultListModel getConnModel()
     {
         return connModel;
     }
+
 
     /**
      * DO NOT USE
@@ -194,7 +210,8 @@ public class CheckerBoard implements ChatDisplay
     {
 
         Set<Point> myList = isRedTurn ? redPieces : blackPieces;
-        if ( myList.isEmpty() )
+        Set<Point> oList = isRedTurn ? blackPieces : redPieces;
+        if ( myList.isEmpty() || oList.isEmpty() )
         {
             return true;
         }
@@ -209,7 +226,7 @@ public class CheckerBoard implements ChatDisplay
         {
             return false;
         }
-        System.out.println("GAME OVEERRRR");
+        System.out.println( "GAME OVEERRRR" );
         return true;
     }
 
@@ -273,15 +290,16 @@ public class CheckerBoard implements ChatDisplay
 
     public void endGame()
     {
+        System.out.println( "inEndGame" );
         gameStarted = false;
-        board = initC;
+        resetBoard();
         isRedTurn = true;
 
         moves = new Stack<Move>();
 
         initPieceList();
         gui.updateCheckers();
-        System.out.println(this);
+        System.out.println( this );
     }
 
 
@@ -610,7 +628,7 @@ public class CheckerBoard implements ChatDisplay
             System.out.println( "end row " );
             System.out.println( "In jump" );
 
-            if(inCompoundMove)
+            if ( inCompoundMove )
             {
                 currentRow = er;
                 currentCol = ec;
@@ -634,15 +652,15 @@ public class CheckerBoard implements ChatDisplay
         isRedTurn = inCompoundMove ? isRedTurn : !isRedTurn;
         moves.push( m );
         System.out.println( moves );
-      
+
         gui.doMove( m );
         System.out.println( "compound move at End" + inCompoundMove );
 
         System.out.println( toString() );
         // System.out.println( this );
-        System.out.println("my set, then other set");
-        System.out.println(myset);
-        System.out.println(oset);
+        System.out.println( "my set, then other set" );
+        System.out.println( myset );
+        System.out.println( oset );
         return true;
     }
 
