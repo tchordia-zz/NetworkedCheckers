@@ -14,5 +14,10 @@ package Model;
  */
 public interface CheckerBoardGui
 {
+    /**
+     * 
+     * Interface class doMove
+     * @param m
+     */
 public void doMove(Move m);
 }

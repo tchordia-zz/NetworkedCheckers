@@ -186,7 +186,7 @@ public class CheckerBoard implements ChatDisplay
      * 
      * @return checks if the game is over
      */
-    boolean isGameOver()
+    public boolean isGameOver()
     {
 
         Set<Point> myList = isRedTurn ? redPieces : blackPieces;
@@ -205,7 +205,7 @@ public class CheckerBoard implements ChatDisplay
         {
             return false;
         }
-
+        System.out.println("GAME OVEERRRR");
         return true;
     }
 
@@ -616,7 +616,7 @@ public class CheckerBoard implements ChatDisplay
         isRedTurn = inCompoundMove ? isRedTurn : !isRedTurn;
         moves.push( m );
         System.out.println( moves );
-        isGameOver();
+      
         gui.doMove( m );
         System.out.println( "compound move at End" + inCompoundMove );
 

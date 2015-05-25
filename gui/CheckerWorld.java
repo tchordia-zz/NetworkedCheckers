@@ -20,14 +20,7 @@ import Model.Move;
  * OthelloWorld.java
  * 
  * An <CODE>OthelloWorld</CODE> object represents an Othello world.
- * 
- * @author TODO Your Name
- * @author TODO Id nnnnnnn
- * @version TODO Date
- * @author Period: TODO
- * @author Assignment: GWOthello
- * 
- * @author Sources: TODO I received help from ...
+ *
  */
 public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 {
@@ -63,20 +56,20 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         System.setProperty( "info.gridworld.gui.selection", "hide" );
         System.setProperty( "info.gridworld.gui.tooltips", "hide" );
         System.setProperty( "info.gridworld.gui.watermark", "hide" );
-        
-        BoundedGrid<Piece> a = new BoundedGrid<Piece>(8,8);
+
+        BoundedGrid<Piece> a = new BoundedGrid<Piece>( 8, 8 );
 
         updateCheckers();
 
-        String inputValue = JOptionPane.showInputDialog("Please input a value");
-        game.connect(inputValue);
+        String inputValue = JOptionPane.showInputDialog( "Please input a value" );
+        game.connect( inputValue );
 
     }
 
-    
 
     /**
-     * Checks the toString of checkerboard to determine where to place the checkers 
+     * Checks the toString of checkerboard to determine where to place the
+     * checkers
      */
     private void updateCheckers()
     {
@@ -86,28 +79,35 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         {
             for ( int y = 0; y < b[x].length; y++ )
             {
+                int lx = x;
+                int ly = y;
+                if ( !game.isBoardRed() )
+                {
+                    lx = ( b.length - 1 ) - x;
+                    ly = ( b[x].length - 1 ) - y;
+                }
                 if ( b[x][y] == 'b' )
                 {
-                    add( new Location( x, y ), new Piece( Color.BLACK ) );
+                    add( new Location( lx, ly ), new Piece( Color.BLACK ) );
                 }
                 else if ( b[x][y] == 'r' )
                 {
-                    add( new Location( x, y ), new Piece( Color.RED ) );
+                    add( new Location( lx, ly ), new Piece( Color.RED ) );
                 }
-                else if( b[x][y] == 'R' )
+                else if ( b[x][y] == 'R' )
                 {
-                    add( new Location( x, y ), new Piece( Color.PINK ) );
+                    add( new Location( lx, ly ), new Piece( Color.PINK ) );
 
                 }
-                else if( b[x][y] == 'B' )
+                else if ( b[x][y] == 'B' )
                 {
-                    add( new Location( x, y ), new Piece( Color.GRAY ) );
+                    add( new Location( lx, ly ), new Piece( Color.GRAY ) );
 
                 }
                 else
                 {
 
-                    remove( new Location(x,y) );
+                    remove( new Location( lx, ly ) );
                 }
             }
         }
@@ -133,11 +133,24 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         }
         else
         {
-            Move m = new Move( lastLoc.getRow(),
-                lastLoc.getCol(),
-                loc.getRow(),
-                loc.getCol(),
-                game.isBoardRed() );
+            char[][] b = game.getBoard();
+            Move m;
+            if ( !game.isBoardRed() )
+            {
+
+                m = new Move( b.length - 1 - lastLoc.getRow(), b.length - 1
+                    - lastLoc.getCol(), b.length - 1 - loc.getRow(), b.length
+                    - 1 - loc.getCol(), game.isBoardRed() );
+            }
+            else
+            {
+                m = new Move( lastLoc.getRow(),
+                    lastLoc.getCol(),
+                    loc.getRow(),
+                    loc.getCol(),
+                    game.isBoardRed() );
+            }
+
             game.doMove( m );
             lastLoc = null;
         }
@@ -199,34 +212,50 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         }
     }
 
-/**
- * 
- * Main method
- * @param args
- */
+
+    /**
+     * 
+     * Main method
+     * 
+     * @param args
+     */
     public static void main( String args[] )
     {
         try
         {
             System.out.println( InetAddress.getLocalHost()
                 .toString()
-                .substring( InetAddress.getLocalHost()
-                    .toString()
-                    .indexOf( "/" ) ) );
+                .substring( InetAddress.getLocalHost().toString().indexOf( "/" ) ) );
         }
         catch ( UnknownHostException e )
         {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         new CheckerWorld().show();
     }
 
 
+    /**
+     * doMove from CheckerBoardGui interface class updates checkers
+     * 
+     * @param m
+     */
     @Override
     public void doMove( Move m )
     {
-        updateCheckers();
+        if ( !game.isGameOver() )
+            updateCheckers();
+        else
+        {
+            int inputValue = JOptionPane.showConfirmDialog( null, "Reset game?" );
+            if ( inputValue == JOptionPane.OK_OPTION )
+            {
+                CheckerBoard g2 = new CheckerBoard( this );
+                g2.startGame( game.isBoardRed() );
+                game = g2;
+            }
+        }
 
     }
 }
