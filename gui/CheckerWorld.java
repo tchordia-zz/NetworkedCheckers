@@ -84,7 +84,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
                 if ( !game.isBoardRed() )
                 {
                     lx = ( b.length - 1 ) - x;
-                    ly = ( b.length - 1 ) - y;
+                    ly = ( b[x].length - 1 ) - y;
                 }
                 if ( b[x][y] == 'b' )
                 {
@@ -133,11 +133,24 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         }
         else
         {
-            Move m = new Move( lastLoc.getRow(),
-                lastLoc.getCol(),
-                loc.getRow(),
-                loc.getCol(),
-                game.isBoardRed() );
+            char[][] b = game.getBoard();
+            Move m;
+            if ( !game.isBoardRed() )
+            {
+
+                m = new Move( b.length - 1 - lastLoc.getRow(), b.length - 1
+                    - lastLoc.getCol(), b.length - 1 - loc.getRow(), b.length
+                    - 1 - loc.getCol(), game.isBoardRed() );
+            }
+            else
+            {
+                m = new Move( lastLoc.getRow(),
+                    lastLoc.getCol(),
+                    loc.getRow(),
+                    loc.getCol(),
+                    game.isBoardRed() );
+            }
+
             game.doMove( m );
             lastLoc = null;
         }
@@ -216,16 +229,18 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         }
         catch ( UnknownHostException e )
         {
-            
+
             e.printStackTrace();
         }
         new CheckerWorld().show();
     }
 
-/**
- * doMove from CheckerBoardGui interface class updates checkers
- * @param m 
- */
+
+    /**
+     * doMove from CheckerBoardGui interface class updates checkers
+     * 
+     * @param m
+     */
     @Override
     public void doMove( Move m )
     {
