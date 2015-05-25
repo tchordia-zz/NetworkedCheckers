@@ -42,7 +42,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 
 
     /**
-     * Construct an Othello world game The Othello game
+     * Construct an Checker world game The Checker game
      */
     public CheckerWorld()
     {
