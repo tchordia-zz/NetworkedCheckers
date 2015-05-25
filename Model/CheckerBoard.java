@@ -1,7 +1,5 @@
 package Model;
 
-
-
 import gui.CheckerWorld;
 
 import java.awt.Point;
@@ -34,17 +32,23 @@ import network.SocketName;
 public class CheckerBoard implements ChatDisplay
 {
     char[][] board;
-  
+
     public static final int port = 1337;
+
     HashSet<Point> redPieces = new HashSet<Point>();
 
     HashSet<Point> blackPieces = new HashSet<Point>();
 
     private boolean isRedTurn = true;
+
     private boolean gameStarted = false;
+
     private ChatConnectionHandler networker;
+
     CheckerWorld gui;
+
     private boolean isBoardRed;
+
     public static final char RED_CHECKER = 'r';
 
     public static final char BLACK_CHECKER = 'b';
@@ -85,10 +89,10 @@ public class CheckerBoard implements ChatDisplay
     private int currentCol = -1;
 
     private Stack<Move> moves;
-    
+
     /** Data model for connections list */
     protected DefaultListModel connModel;
-    
+
     /** List of active connections */
     protected JList connections;
 
@@ -97,13 +101,13 @@ public class CheckerBoard implements ChatDisplay
      * @param game
      *            the game instance that created this checkerboard
      */
-    public CheckerBoard(CheckerWorld c)
+    public CheckerBoard( CheckerWorld c )
     {
 
         connModel = new DefaultListModel();
         connections = new JList( connModel );
 
-        networker = new ChatConnectionHandler(this, port);
+        networker = new ChatConnectionHandler( this, port );
         gui = c;
 
         board = initC;
@@ -115,12 +119,14 @@ public class CheckerBoard implements ChatDisplay
         // System.out.println( this );
 
     }
+
+
     /**
      * DO NOT USE
      */
     protected CheckerBoard()
     {
-        this(null);
+        this( null );
     }
 
 
@@ -135,10 +141,13 @@ public class CheckerBoard implements ChatDisplay
 
     }
 
+
     public boolean isBoardRed()
     {
         return isBoardRed;
     }
+
+
     /**
      * 
      * @return total number of black pieces
@@ -242,16 +251,21 @@ public class CheckerBoard implements ChatDisplay
 
     }
 
-    public void startGame(boolean isBoardRed)
+
+    public void startGame( boolean isBoardRed )
     {
         gameStarted = true;
         this.isBoardRed = isBoardRed;
-        gui.setMessage( "Game Started: you are " + (isBoardRed?"red":"black") );
+        gui.setMessage( "Game Started: you are "
+            + ( isBoardRed ? "red" : "black" ) );
     }
+
+
     public void endGame()
     {
         gameStarted = false;
     }
+
 
     /**
      * List all simple moves for a given square
@@ -300,11 +314,12 @@ public class CheckerBoard implements ChatDisplay
      */
     public boolean isLegal( Move m )
     {
-        if(!gameStarted)
+        if ( !gameStarted )
         {
             return false;
         }
-        System.out.println("herro"  + m.isRed() + " " + isRed( m.getStartRow(), m.getStartCol() ) );
+//        System.out.println( "herro" + m.isRed() + " "
+//            + isRed( m.getStartRow(), m.getStartCol() ) );
         int sr = m.getStartRow();
         int sc = m.getStartCol();
         int er = m.getEndRow();
@@ -317,7 +332,15 @@ public class CheckerBoard implements ChatDisplay
             System.out.println( "not your piece" );
             return false;
         }
-        if(m.isRed() != isRedTurn)
+        if ( m.isLocal() && ( isBoardRed() != m.isRed() ) )
+        {
+            return false;
+        }
+        if ( !m.isLocal() && ( isBoardRed() == m.isRed() ) )
+        {
+            return false;
+        }
+        if ( m.isRed() != isRedTurn )
         {
             return false;
         }
@@ -329,7 +352,7 @@ public class CheckerBoard implements ChatDisplay
             }
         if ( ( board[m.getEndRow()][m.getEndCol()] != ' ' ) )
         {
-//            System.out.println( "End square occupied" );
+            // System.out.println( "End square occupied" );
             return false;
         }
         if ( m.isKingMove() )
@@ -528,7 +551,7 @@ public class CheckerBoard implements ChatDisplay
             System.out.println( "illegal move" );
             return false;
         }
-        if(m.isLocal())
+        if ( m.isLocal() )
         {
             networker.send( m.toString() );
         }
@@ -567,15 +590,14 @@ public class CheckerBoard implements ChatDisplay
 
         isRedTurn = inCompoundMove ? isRedTurn : !isRedTurn;
         moves.push( m );
-        System.out.println(moves);
+        System.out.println( moves );
         isGameOver();
         gui.doMove( m );
-        System.out.println(toString());
-//        System.out.println( this );
+        System.out.println( toString() );
+        // System.out.println( this );
         return true;
     }
 
-    
 
     public boolean hasJumps( int row, int col )
     {
@@ -599,7 +621,7 @@ public class CheckerBoard implements ChatDisplay
     }
 
 
-    public void undo() //NotFunctional (YET)
+    public void undo() // NotFunctional (YET)
     {
         if ( moves.isEmpty() )
             return;
@@ -620,10 +642,12 @@ public class CheckerBoard implements ChatDisplay
 
     }
 
+
     public char[][] getBoard()
     {
         return board;
     }
+
 
     // for test purposes/ text based game
     /*
@@ -646,20 +670,23 @@ public class CheckerBoard implements ChatDisplay
         return ret;
 
     }
-  
+
+
     /**
      * @see ChatDisplay#createSocket
      */
-    public synchronized void createSocket( SocketName name, boolean isRed)
+    public synchronized void createSocket( SocketName name, boolean isRed )
     {
         connModel.addElement( name );
-        startGame(isRed);
+        startGame( isRed );
     }
-    
+
+
     public void statusMessage( String message )
     {
-       
+
     }
+
 
     /**
      * @see ChatDisplay#destroySocket
@@ -671,38 +698,41 @@ public class CheckerBoard implements ChatDisplay
             connModel.removeElement( name );
         }
         endGame();
-        
+
     }
+
+
     @Override
     public void chatMessage( SocketName name, String message )
     {
-       System.out.println(Move.stringToMove( message, false ));
-        doMove(Move.stringToMove( message, false));
-       
-    }
-//    @Override
-//    public void createSocket( SocketName name, boolean isRed )
-//    {
-//        // TODO Auto-generated method stub
-//        
-//    }
+        System.out.println( "line in checkerboard" +  Move.stringToMove( message, false ) );
+        doMove( Move.stringToMove( message, false ) );
 
-    public void connect(String name)
+    }
+
+
+    // @Override
+    // public void createSocket( SocketName name, boolean isRed )
+    // {
+    // // TODO Auto-generated method stub
+    //
+    // }
+
+    public void connect( String name )
     {
         try
         {
-            SocketName sock = new SocketName( name,
-                1337, "Other Player" );
+            SocketName sock = new SocketName( name, 1337, "Other Player" );
 
-            try{
-            networker.connect( sock, true );
+            try
+            {
+                networker.connect( sock, true );
             }
-            catch(Exception e)
+            catch ( Exception e )
             {
                 e.printStackTrace();
             }
 
-          
         }
         catch ( IllegalArgumentException iae )
         {
@@ -710,5 +740,5 @@ public class CheckerBoard implements ChatDisplay
         }
 
     }
-    
+
 }

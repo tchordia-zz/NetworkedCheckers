@@ -93,7 +93,7 @@ public class ChatReceiver extends Thread
 
             while ( ( line = input.readLine() ) != null )
             {
-                System.out.println(line);
+                System.out.println("Line received" + line);
                 display.chatMessage( name, line );
             }
         }
