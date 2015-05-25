@@ -239,7 +239,7 @@ public class CheckerBoard implements ChatDisplay
         {
             for ( int b = -2; b < 3; b += 4 )
             {
-                Move m = new Move( row, col, row + a, col + b, isRed( row, col ) );
+                Move m = new Move( row, col, row + a, col + b, isRed( row, col ), isRed(row,col) == isBoardRed );
                 if ( isLegal( m ) )
                 {
                     moves.add( m );
