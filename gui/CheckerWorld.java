@@ -5,11 +5,12 @@ import info.gridworld.grid.Location;
 import info.gridworld.world.World;
 
 import java.awt.Color;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JOptionPane;
 
-import network.SocketName;
 import Model.CheckerBoard;
 import Model.CheckerBoardGui;
 import Model.Move;
@@ -191,6 +192,19 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 
     public static void main( String args[] )
     {
+        try
+        {
+            System.out.println( InetAddress.getLocalHost()
+                .toString()
+                .substring( InetAddress.getLocalHost()
+                    .toString()
+                    .indexOf( "/" ) ) );
+        }
+        catch ( UnknownHostException e )
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         new CheckerWorld().show();
     }
 
