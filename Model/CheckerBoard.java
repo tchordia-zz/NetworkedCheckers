@@ -314,6 +314,7 @@ public class CheckerBoard implements ChatDisplay
      */
     public boolean isLegal( Move m )
     {
+        
         if ( !gameStarted )
         {
             return false;
@@ -538,6 +539,7 @@ public class CheckerBoard implements ChatDisplay
      */
     public boolean doMove( Move m )
     {
+        System.out.println("compound move " + inCompoundMove);
         int sr = m.getStartRow();
         int sc = m.getStartCol();
         int er = m.getEndRow();
