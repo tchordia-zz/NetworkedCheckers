@@ -82,7 +82,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
             {
                 int lx = x;
                 int ly = y;
-                System.out.println(game.isBoardRed());
+//                System.out.println(game.isBoardRed());
                 if ( !game.isBoardRed() )
                 {
                     lx = ( b.length - 1 ) - x;
