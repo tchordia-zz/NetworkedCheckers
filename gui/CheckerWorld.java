@@ -11,6 +11,7 @@ import java.util.concurrent.Semaphore;
 
 import javax.swing.JOptionPane;
 
+import network.SocketName;
 import Model.CheckerBoard;
 import Model.CheckerBoardGui;
 import Model.Move;
@@ -71,7 +72,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
      * Checks the toString of checkerboard to determine where to place the
      * checkers
      */
-    private void updateCheckers()
+    public void updateCheckers()
     {
         char[][] b = game.getBoard();
 
@@ -252,9 +253,12 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
             int inputValue = JOptionPane.showConfirmDialog( null, "Reset game?" );
             if ( inputValue == JOptionPane.OK_OPTION )
             {
-                CheckerBoard g2 = new CheckerBoard( this );
-                g2.startGame( game.isBoardRed() );
-                game = g2;
+                boolean a = game.isBoardRed();
+                game.destroySocket((SocketName)(game.getConnModel().firstElement()));
+                game = null;
+                game = new CheckerBoard( this );
+                game.startGame( a);
+                
             }
         }
 
