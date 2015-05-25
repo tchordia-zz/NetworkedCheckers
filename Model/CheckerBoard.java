@@ -568,6 +568,9 @@ public class CheckerBoard implements ChatDisplay
         {
             board[( sr + er ) / 2][( sc + ec ) / 2] = ' ';
             oset.remove( new Point( ( sr + er ) / 2, ( sc + ec ) / 2 ) );
+            System.out.println("end row ");
+            System.out.println("In jump");
+            
             if ( hasJumps( er, ec ) )
             {
                 inCompoundMove = true;
@@ -596,6 +599,8 @@ public class CheckerBoard implements ChatDisplay
         System.out.println( moves );
         isGameOver();
         gui.doMove( m );
+        System.out.println("compound move at End" + inCompoundMove);
+
         System.out.println( toString() );
         // System.out.println( this );
         return true;
@@ -604,6 +609,7 @@ public class CheckerBoard implements ChatDisplay
 
     public boolean hasJumps( int row, int col )
     {
+        System.out.println(listJumpMoves( row, col ));
         return listJumpMoves( row, col ).size() != 0;
     }
 
