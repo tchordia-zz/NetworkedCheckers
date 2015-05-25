@@ -76,7 +76,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
     
 
     /**
-     * TODO Write your method description here.
+     * Checks the toString of checkerboard to determine where to place the checkers 
      */
     private void updateCheckers()
     {
@@ -199,7 +199,11 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         }
     }
 
-
+/**
+ * 
+ * Main method
+ * @param args
+ */
     public static void main( String args[] )
     {
         try
