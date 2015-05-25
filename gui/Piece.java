@@ -48,25 +48,41 @@ public class Piece
         color = newColor;
     }
 
-
+/**
+ * 
+ * return x value
+ * @return
+ */
     public int getX()
     {
         return x;
     }
 
-
+/**
+ * 
+ * return y value
+ * @return
+ */
     public int getY()
     {
         return y;
     }
 
-
+/**
+ * 
+ * set x value
+ * @param a
+ */
     public void setX( int a )
     {
         x = a;
     }
 
-
+/**
+ * 
+ * set y value
+ * @param b
+ */
     public void setY( int b )
     {
         y = b;

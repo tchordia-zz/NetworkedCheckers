@@ -20,14 +20,7 @@ import Model.Move;
  * OthelloWorld.java
  * 
  * An <CODE>OthelloWorld</CODE> object represents an Othello world.
- * 
- * @author TODO Your Name
- * @author TODO Id nnnnnnn
- * @version TODO Date
- * @author Period: TODO
- * @author Assignment: GWOthello
- * 
- * @author Sources: TODO I received help from ...
+ *
  */
 public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 {
@@ -216,13 +209,16 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         }
         catch ( UnknownHostException e )
         {
-            // TODO Auto-generated catch block
+            
             e.printStackTrace();
         }
         new CheckerWorld().show();
     }
 
-
+/**
+ * doMove from CheckerBoardGui interface class updates checkers
+ * @param m 
+ */
     @Override
     public void doMove( Move m )
     {
