@@ -304,6 +304,7 @@ public class CheckerBoard implements ChatDisplay
         {
             return false;
         }
+        System.out.println("herro"  + m.isRed() + " " + isRed( m.getStartRow(), m.getStartCol() ) );
         int sr = m.getStartRow();
         int sc = m.getStartCol();
         int er = m.getEndRow();
@@ -314,6 +315,10 @@ public class CheckerBoard implements ChatDisplay
         if ( m.isRed() != isRed( m.getStartRow(), m.getStartCol() ) )
         {
             System.out.println( "not your piece" );
+            return false;
+        }
+        if(m.isRed() != isRedTurn)
+        {
             return false;
         }
         if ( m.isRed() == isBlack( sr, sc ) )
@@ -564,11 +569,12 @@ public class CheckerBoard implements ChatDisplay
         moves.push( m );
         isGameOver();
         gui.doMove( m );
-
+        System.out.println(toString());
 //        System.out.println( this );
         return true;
     }
 
+    
 
     public boolean hasJumps( int row, int col )
     {
@@ -669,7 +675,7 @@ public class CheckerBoard implements ChatDisplay
     @Override
     public void chatMessage( SocketName name, String message )
     {
-        // TODO Auto-generated method stub
+       doMove(Move.stringToMove( message, false));
         
     }
 //    @Override
@@ -679,5 +685,28 @@ public class CheckerBoard implements ChatDisplay
 //        
 //    }
 
+    public void connect(String name)
+    {
+        try
+        {
+            SocketName sock = new SocketName( name,
+                1337, "Other Player" );
+
+            try{
+            networker.connect( sock, true );
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
+          
+        }
+        catch ( IllegalArgumentException iae )
+        {
+            statusMessage( "Cannot connect: " + iae.getMessage() );
+        }
+
+    }
     
 }

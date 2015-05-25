@@ -22,17 +22,9 @@ import org.junit.Test;
 public class MJUnit
 {
 
-    private final Move[] p1 = { new Move( 5, 0, 4, 1, true ),
-        new Move( 2, 1, 3, 2, false ), new Move( 5, 2, 4, 3, true ),
-        new Move( 3, 2, 5, 0, false ) };
+    private final int[][] b1 = { { 5, 2, 4, 3 }, { 2, 1, 3, 2 }, { 4, 3, 2, 1 } };
 
-    private final int[][] b1 = { { 5, 2, 4, 3 }, { 2, 1, 3, 2 }, {4,3,2,1} };
-    
-    private final int[][] b2 = { { 5, 2, 4, 3 }, { 2, 1, 3, 2 }};
-
-
-   
-
+    private final int[][] b2 = { { 5, 2, 4, 3 }, { 2, 1, 3, 2 } };
 
 
     private List<Move> g( int[][] mat )
@@ -48,26 +40,17 @@ public class MJUnit
         }
         return m;
     }
-    private CheckerBoard ib(int[][] mat)
+
+
+    private CheckerBoard ib( int[][] mat )
     {
         CheckerBoard c = new CheckerBoard();
-        List<Move> a = g(mat);
-        for(Move b:a)
+        List<Move> a = g( mat );
+        for ( Move b : a )
         {
-            c.doMove(b);
+            c.doMove( b );
         }
         return c;
-    }
-
-
-    /**
-     * Test method for {@link Model.CheckerBoard#CheckerBoard(Model.Game)}.
-     */
-    @Test
-    public void testCheckerBoard()
-    {
-
-        fail( "Not yet implemented" );
     }
 
 
@@ -78,14 +61,18 @@ public class MJUnit
     public void testGetNumRed()
     {
         CheckerBoard c = new CheckerBoard();
+        Move[] p1 = { new Move( 5, 0, 4, 1, true ),
+            new Move( 2, 3, 3, 2, false ), new Move( 4, 1, 2, 3, true ),
+            new Move( 1, 4, 3, 2, false ) };
+
         assertTrue( c.getNumRed() == 12 );
 
         for ( Move a : p1 )
         {
             c.doMove( a );
         }
-        assertTrue( c.getNumRed() == 11 );
 
+        assertTrue( c.getNumRed() == 11 );
     }
 
 
@@ -96,10 +83,14 @@ public class MJUnit
     public void testGetNumBlack()
     {
         CheckerBoard c = new CheckerBoard();
+        Move[] p1 = { new Move( 5, 0, 4, 1, true ),
+            new Move( 2, 3, 3, 2, false ), new Move( 4, 1, 2, 3, true ),
+            new Move( 1, 4, 3, 2, false ) };
+
         assertTrue( c.getNumBlack() == 12 );
-        c = ib(b1);
-        assertTrue(c.getNumBlack() == 11);
-        
+        c = ib( b1 );
+        assertTrue( c.getNumBlack() == 11 );
+
     }
 
 
@@ -109,7 +100,12 @@ public class MJUnit
     @Test
     public void testIsGameOver()
     {
-        fail( "Not yet implemented" );
+        CheckerBoard c = new CheckerBoard();
+
+        // not sure. either actually make all the moves so one wins or make
+        // board where black is empty and red is full
+
+        assertTrue( c.getNumBlack() != 0 || c.getNumRed() != 0 );
     }
 
 
@@ -119,7 +115,25 @@ public class MJUnit
     @Test
     public void testIsLegal()
     {
-        fail( "Not yet implemented" );
+        CheckerBoard c = new CheckerBoard();
+
+        Move[] rm = { new Move( 5, 0, 4, 0, true ) };
+        Move[] fm = { new Move( 5, 0, 4, 0, true ) };
+        Move[] wm = { new Move( 5, 0, 4, 0, true ) };
+        Move[] jump = { new Move( 5, 0, 4, 0, true ) };
+        Move[] king = { new Move( 5, 0, 4, 0, true ) };
+
+        // jump to wrong place
+        // assertTrue( !c.isLegal( rm ) );
+
+        // jump way to far
+        // assertTrue( !c.isLegal( fm ) );
+
+        // wrong piece to move
+        // assertTrue( !c.isLegal( wm ) );
+
+        // king moves
+        // assertTrue( !c.isLegal( king ) );
     }
 
 
@@ -129,7 +143,14 @@ public class MJUnit
     @Test
     public void testDoMove()
     {
-        fail( "Not yet implemented" );
+        CheckerBoard c = new CheckerBoard();
+
+        Move rm = new Move( 5, 0, 4, 1, true );
+
+        // regular move
+        assertTrue( c.doMove( rm ) );
+        // jump
+
     }
 
 
@@ -139,12 +160,11 @@ public class MJUnit
     @Test
     public void testHasJumps()
     {
-        CheckerBoard c = ib(b2);
-        System.out.println(c);
-        assertTrue( c.hasJumps(1,2) );
-        assertTrue(!c.hasJumps( 2, 3 ));
-        assertTrue(!c.hasJumps( 2, 1 ));
-
+        CheckerBoard c = ib( b2 );
+        System.out.println( c );
+        assertTrue( !c.hasJumps( 5, 2 ) );
+        assertTrue( !c.hasJumps( 2, 3 ) );
+        assertTrue( !c.hasJumps( 2, 1 ) );
     }
 
 
@@ -154,8 +174,8 @@ public class MJUnit
     @Test
     public void testIsRedTurn()
     {
-        CheckerBoard c = ib(b1);
-        assertTrue(!c.isRedTurn());
+        CheckerBoard c = ib( b1 );
+        assertTrue( c.isRedTurn() );
     }
 
 
@@ -165,9 +185,15 @@ public class MJUnit
     @Test
     public void testInCompoundMove()
     {
-        fail( "Not yet implemented" );
+        int[][] m = { { 5, 2, 4, 1 }, { 2, 7, 3, 6 }, { 4, 1, 3, 0 },
+            { 1, 6, 2, 7 }, { 5, 0, 4, 1 }, { 2, 3, 3, 4 }, { 6, 3, 5, 2 },
+            { 3, 4, 4, 3 }, { 5, 2, 3, 4 }, { 3, 4, 1, 6 } };
+
+        CheckerBoard c = ib( m );
+        // System.out.println( c.hasJumps( 5, 2 ) );
+        // System.out.println( c.hasJumps( 3, 4 ) );
+        assertTrue( !c.hasJumps( 5, 2 ) );
+        assertTrue( !c.hasJumps( 3, 4 ) );
     }
-
-
 
 }
