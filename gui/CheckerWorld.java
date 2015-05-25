@@ -11,7 +11,6 @@ import java.util.concurrent.Semaphore;
 
 import javax.swing.JOptionPane;
 
-import network.SocketName;
 import Model.CheckerBoard;
 import Model.CheckerBoardGui;
 import Model.Move;
@@ -43,7 +42,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 
 
     /**
-     * Construct an Othello world game The Othello game
+     * Construct an Checker world game The Checker game
      */
     public CheckerWorld()
     {
@@ -57,8 +56,6 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         System.setProperty( "info.gridworld.gui.selection", "hide" );
         System.setProperty( "info.gridworld.gui.tooltips", "hide" );
         System.setProperty( "info.gridworld.gui.watermark", "hide" );
-
-        BoundedGrid<Piece> a = new BoundedGrid<Piece>( 8, 8 );
 
         updateCheckers();
 
