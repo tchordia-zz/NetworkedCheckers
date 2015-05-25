@@ -87,7 +87,10 @@ public class MJUnit
             new Move( 1, 4, 3, 2, false ) };
 
         assertTrue( c.getNumBlack() == 12 );
-        c = ib( b1 );
+        for ( Move a : p1 )
+        {
+            c.doMove( a );
+        }
         assertTrue( c.getNumBlack() == 11 );
 
     }
@@ -123,16 +126,48 @@ public class MJUnit
         Move[] king = { new Move( 5, 0, 4, 0, true ) };
 
         // jump to wrong place
-        // assertTrue( !c.isLegal( rm ) );
+        for ( Move a : rm )
+        {
+            c.doMove( a );
+
+            if ( !c.isLegal( a ) )
+            {
+                assertTrue( true );
+            }
+        }
 
         // jump way to far
-        // assertTrue( !c.isLegal( fm ) );
+        for ( Move a : fm )
+        {
+            c.doMove( a );
+
+            if ( !c.isLegal( a ) )
+            {
+                assertTrue( true );
+            }
+        }
 
         // wrong piece to move
-        // assertTrue( !c.isLegal( wm ) );
+        for ( Move a : jump )
+        {
+            c.doMove( a );
+
+            if ( !c.isLegal( a ) )
+            {
+                assertTrue( true );
+            }
+        }
 
         // king moves
-        // assertTrue( !c.isLegal( king ) );
+        for ( Move a : king )
+        {
+            c.doMove( a );
+
+            if ( !c.isLegal( a ) )
+            {
+                assertTrue( true );
+            }
+        }
     }
 
 
@@ -144,10 +179,18 @@ public class MJUnit
     {
         CheckerBoard c = new CheckerBoard();
 
-        Move rm = new Move( 5, 0, 4, 1, true );
+        Move[] m = {new Move( 5, 0, 4, 1, true )};
 
         // regular move
-        assertTrue( c.doMove( rm ) );
+        for ( Move a : m )
+        {
+            c.doMove( a );
+
+            if ( !c.isLegal( a ) )
+            {
+                assertTrue( true );
+            }
+        }
         // jump
 
     }
