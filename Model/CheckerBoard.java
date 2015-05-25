@@ -567,6 +567,7 @@ public class CheckerBoard implements ChatDisplay
 
         isRedTurn = inCompoundMove ? isRedTurn : !isRedTurn;
         moves.push( m );
+        System.out.println(moves);
         isGameOver();
         gui.doMove( m );
         System.out.println(toString());
@@ -675,8 +676,9 @@ public class CheckerBoard implements ChatDisplay
     @Override
     public void chatMessage( SocketName name, String message )
     {
-       doMove(Move.stringToMove( message, false));
-        
+       System.out.println(Move.stringToMove( message, false ));
+        doMove(Move.stringToMove( message, false));
+       
     }
 //    @Override
 //    public void createSocket( SocketName name, boolean isRed )
