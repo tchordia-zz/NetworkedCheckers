@@ -281,7 +281,7 @@ public class CheckerBoard implements ChatDisplay
         {
             for ( int b = -1; b < 2; b += 2 )
             {
-                Move m = new Move( row, col, row + a, col + b, isRed( row, col ) );
+                Move m = new Move( row, col, row + a, col + b, isRed( row, col ),  isRed(row,col) == isBoardRed );
                 if ( isLegal( m ) )
                 {
                     moves.add( m );
@@ -304,7 +304,7 @@ public class CheckerBoard implements ChatDisplay
     {
         return ( 0 <= eRow && eRow < board.length && 0 <= eCol && eCol < board[0].length );
     }
-
+    
 
     /**
      * checks if a move is legal.
@@ -335,10 +335,13 @@ public class CheckerBoard implements ChatDisplay
         }
         if ( m.isLocal() && ( isBoardRed() != m.isRed() ) )
         {
+            System.out.println("local, but not board color");
             return false;
         }
         if ( !m.isLocal() && ( isBoardRed() == m.isRed() ) )
         {
+            System.out.println("not local, but board color");
+
             return false;
         }
         if ( m.isRed() != isRedTurn )
@@ -609,7 +612,7 @@ public class CheckerBoard implements ChatDisplay
 
     public boolean hasJumps( int row, int col )
     {
-        System.out.println(listJumpMoves( row, col ));
+        System.out.println("hello" + listJumpMoves( row, col ));
         return listJumpMoves( row, col ).size() != 0;
     }
 
