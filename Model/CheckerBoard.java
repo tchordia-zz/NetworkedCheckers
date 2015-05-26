@@ -279,7 +279,11 @@ public class CheckerBoard implements ChatDisplay
 
     }
 
-
+/**
+ * 
+ * checks to see if game has started.
+ * @param isBoardRed
+ */
     public void startGame( boolean isBoardRed )
     {
         gameStarted = true;
@@ -289,7 +293,10 @@ public class CheckerBoard implements ChatDisplay
         gui.updateCheckers();
     }
 
-
+/**
+ * 
+ * checks if game is over and resets board.
+ */
     public void endGame()
     {
         System.out.println( "inEndGame" );
