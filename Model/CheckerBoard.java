@@ -177,6 +177,8 @@ public class CheckerBoard implements ChatDisplay
         return blackPieces.size();
     }
 
+   
+    
 
     /**
      * initialize the piece list with the original game board
