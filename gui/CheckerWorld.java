@@ -16,24 +16,27 @@ import Model.CheckerBoardGui;
 import Model.Move;
 
 
+
 /**
- * OthelloWorld.java
  * 
- * An <CODE>OthelloWorld</CODE> object represents an Othello world.
+ *  Based on Grid World Othello project, this class creates a grid world interface.
+ *  Includes a 
  *
+ *  @version May 23, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
+ *
+ *  @author  Sources: GWOthello
  */
 public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 {
-    /** The Checker game */
+    
     private CheckerBoard game;
 
-    /**
-     * A semaphore to prevent getPlayerLocation from executing before
-     * setPlayerLocation
-     */
+    
     private Semaphore lock;
 
-    /** The last selected player location */
+
     private Location playerLocation;
 
     boolean inMove = false;
@@ -42,7 +45,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 
 
     /**
-     * Construct an Checker world game The Checker game
+     * Constructs an Checker world game The Checker game
      */
     public CheckerWorld()
     {
