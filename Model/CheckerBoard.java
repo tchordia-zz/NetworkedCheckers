@@ -3,6 +3,7 @@ package Model;
 import gui.CheckerWorld;
 
 import java.awt.Point;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -308,6 +309,16 @@ public class CheckerBoard implements ChatDisplay
 
         initPieceList();
         gui.updateCheckers();
+        gui.setMessage( "Connection terminated" );
+        try
+        {
+            gui.setDefaultString();
+        }
+        catch ( UnknownHostException e )
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         System.out.println( this );
     }
 
