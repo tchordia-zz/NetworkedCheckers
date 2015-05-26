@@ -2,6 +2,16 @@ package Model;
 
 import java.util.StringTokenizer;
 
+/**
+ *  A class that represents on a Move. Contains a start location, and an end location
+ *
+ *  @author  Tanmay
+ *  @version May 26, 2015
+ *  @author  Period: TODO
+ *  @author  Assignment: FinalAPCSProj
+ *
+ *  @author  Sources: TODO
+ */
 public class Move
 {
     private final int startRow;
@@ -18,7 +28,7 @@ public class Move
     
     /**
      * move constructor assuming local
-     * @param startRow
+     * @param startRow 
      * @param startCol
      * @param endRow
      * @param endCol
@@ -88,6 +98,10 @@ public class Move
  }
 
 
+    /**
+     * The first move that is sent in the game to initialize
+     * @return
+     */
     public static Move firstMove()
     {
         return new Move( 0, 0, 0, 0, !Game.RED );

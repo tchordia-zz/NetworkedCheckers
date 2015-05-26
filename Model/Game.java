@@ -2,6 +2,16 @@ package Model;
 
 
 
+/**
+ * A testing class that served as the main before the GUI was written. Uses two players and calls each in succession
+ *
+ *  @author  Tanmay
+ *  @version May 26, 2015
+ *  @author  Period: TODO
+ *  @author  Assignment: FinalAPCSProj
+ *
+ *  @author  Sources: TODO
+ */
 public class Game
 {
     Player red;

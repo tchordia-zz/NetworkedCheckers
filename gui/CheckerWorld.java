@@ -51,19 +51,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         this.game = new CheckerBoard( this );
         lock = new Semaphore( 0 );
         playerLocation = null;
-        try
-        {
-            setMessage( "Checkers: not connected to other player. Your IP: " + InetAddress.getLocalHost()
-                .toString()
-                .substring( InetAddress.getLocalHost()
-                    .toString()
-                    .indexOf( "/" ) + 1 )  );
-        }
-        catch ( UnknownHostException e )
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+       
 
         System.setProperty( "info.gridworld.gui.selection", "hide" );
         System.setProperty( "info.gridworld.gui.tooltips", "hide" );
@@ -72,8 +60,39 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         updateCheckers();
 
         String inputValue = JOptionPane.showInputDialog( "Please input a value" );
-        game.connect( inputValue );
+        System.out.println(inputValue);
+        if ( inputValue != null )
+        {
+            game.connect( inputValue );
+        }
+        else
+        {
+            try
+            {
+                setDefaultString();
+            }
+            catch ( UnknownHostException e )
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
 
+    }
+
+
+    /**
+     * TODO Write your method description here.
+     * @throws UnknownHostException
+     */
+    public void setDefaultString() throws UnknownHostException
+    {
+        super.setMessage( "Checkers: not connected to other player. Your IP: "
+                        + InetAddress.getLocalHost()
+                            .toString()
+                            .substring( InetAddress.getLocalHost()
+                                .toString()
+                                .indexOf( "/" ) + 1 ) );
     }
 
 
@@ -91,7 +110,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
             {
                 int lx = x;
                 int ly = y;
-//                System.out.println(game.isBoardRed());
+                // System.out.println(game.isBoardRed());
                 if ( !game.isBoardRed() )
                 {
                     lx = ( b.length - 1 ) - x;
@@ -122,7 +141,8 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
                 }
             }
         }
-        setMessage("It is "+  (game.isRedTurn()?"red":"black") + "'s turn");
+        setMessage( "It is " + ( game.isRedTurn() ? "red" : "black" )
+            + "'s turn" );
     }
 
 
@@ -137,7 +157,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
     public boolean locationClicked( Location loc )
     {
         setPlayerLocation( loc );
-//        System.out.println( loc );
+        // System.out.println( loc );
         if ( lastLoc == null )
         {
 
@@ -166,7 +186,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
             game.doMove( m );
             lastLoc = null;
         }
-        
+
         return true;
     }
 
@@ -217,7 +237,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         super.setMessage( msg );
         try
         {
-            Thread.sleep( 2000 );
+            Thread.sleep( 4000 );
         }
         catch ( InterruptedException e )
         {
@@ -262,15 +282,16 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         else
         {
             updateCheckers();
-            setMessage("GameOver");
-            int inputValue = JOptionPane.showConfirmDialog( null, (game.isRedTurn()?"Black":"Red") + " won! Reset game?" );
-//            System.out.println("INPUT VALUE" + inputValue);
+            setMessage( "GameOver" );
+            int inputValue = JOptionPane.showConfirmDialog( null,
+                ( game.isRedTurn() ? "Black" : "Red" ) + " won! Reset game?" );
+            // System.out.println("INPUT VALUE" + inputValue);
             if ( inputValue == JOptionPane.OK_OPTION )
             {
                 boolean a = game.isBoardRed();
                 game.endGame();
-                game.startGame(a);
-                
+                game.startGame( a );
+
             }
         }
 
