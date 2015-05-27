@@ -85,6 +85,7 @@ public class MJUnit
             new Move( 1, 4, 3, 2, false ) };
 
         assertTrue( c.getNumBlack() == 12 );
+        
         for ( Move a : p1 )
         {
             c.doMove( a );
@@ -102,8 +103,7 @@ public class MJUnit
     {
         CheckerBoard c = new CheckerBoard();
 
-        // not sure. either actually make all the moves so one wins or make
-        // board where black is empty and red is full
+        // create a gameover game
 
         assertTrue( c.getNumBlack() != 0 || c.getNumRed() != 0 );
     }
@@ -190,7 +190,7 @@ public class MJUnit
             }
         }
         // jump
-        // NOT FINISHED
+        
     }
 
 
@@ -200,11 +200,8 @@ public class MJUnit
     @Test
     public void testHasJumps()
     {
-        // CheckerBoard c = ib( b2 );
-        // System.out.println( c );
-        // assertTrue( !c.hasJumps( 5, 2 ) );
-        // assertTrue( !c.hasJumps( 2, 3 ) );
-        // assertTrue( !c.hasJumps( 2, 1 ) );
+        // move to a place
+        // assert true if hasJump = possible moves
     }
 
 
