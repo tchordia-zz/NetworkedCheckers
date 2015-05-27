@@ -16,6 +16,10 @@ import java.io.IOException;
  * the main program can kill the thread at any time.
  *
  * $Id: ChatSender.java
+ * 
+ *  @version May 26, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
  */
 public class ChatSender extends Thread
 {

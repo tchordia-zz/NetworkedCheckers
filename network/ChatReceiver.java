@@ -19,6 +19,10 @@ import java.io.IOException;
  * to close the socket before exiting.
  *
  * $Id: ChatReceiver.java
+ * 
+ *  @version May 26, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
  */
 public class ChatReceiver extends Thread
 {

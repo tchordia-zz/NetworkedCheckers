@@ -29,6 +29,10 @@ import java.awt.event.*;
  * the networking threads, and presents these messages to the user.
  *
  * $Id: ChatGui.java
+ *  @version May 26, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
+ *
  */
 public class ChatGui extends JPanel implements ChatDisplay,
                                                ActionListener, KeyListener

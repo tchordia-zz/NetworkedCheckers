@@ -11,6 +11,11 @@ package network;
  * UNLESS YOU IMPLEMENT NEW FUNCTIONALITY, YOU DO NOT NEED TO EDIT THIS FILE.
  *
  * $Id: ChatDisplay.java
+ * 
+ *  @version May 26, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
+ *
  */
 public interface ChatDisplay
 {

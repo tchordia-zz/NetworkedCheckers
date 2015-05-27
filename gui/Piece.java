@@ -2,7 +2,15 @@ package gui;
 
 import java.awt.Color;
 
-
+/**
+ * 
+ *  Piece Class from GWOthello.
+ *
+ *  @version May 20, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
+ *
+ */
 public class Piece
 {
     private Color color;
@@ -50,7 +58,7 @@ public class Piece
 
 /**
  * 
- * return x value
+ * Returns x value.
  * @return
  */
     public int getX()
@@ -60,7 +68,7 @@ public class Piece
 
 /**
  * 
- * return y value
+ * Return y value.
  * @return
  */
     public int getY()
@@ -70,7 +78,7 @@ public class Piece
 
 /**
  * 
- * set x value
+ * Sets x value.
  * @param a
  */
     public void setX( int a )
@@ -80,7 +88,7 @@ public class Piece
 
 /**
  * 
- * set y value
+ * Sets y value.
  * @param b
  */
     public void setY( int b )

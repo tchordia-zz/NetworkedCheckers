@@ -10,11 +10,22 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import info.gridworld.gui.AbstractDisplay;
 
-    /**
-     * PieceDisplay.java
-     * 
-     * Provides code to draw a <CODE>Piece</CODE> object
-     */
+//    /**
+//     * PieceDisplay.java for GWOthello
+//     * 
+//     * Provides code to draw a <CODE>Piece</CODE> object
+//     * 
+//     */
+/**
+ * 
+ * PieceDisplay.java for GWOthello
+ *  Provides code to draw a <CODE>Piece</CODE> object
+ *  
+ *  @version May 20, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
+ *
+ */
     public class PieceDisplay extends AbstractDisplay
     {
         private static final double PIECE_DIAMETER = .8;
@@ -37,7 +48,7 @@ import info.gridworld.gui.AbstractDisplay;
         }
 
         /**
-         * Draw a piece.
+         * Draws a piece.
          * @param obj the piece to draw
          * @param comp not used
          * @param g2 the graphics 2D object to draw with

@@ -16,26 +16,23 @@ import Model.CheckerBoardGui;
 import Model.Move;
 
 
-
 /**
  * 
- *  Based on Grid World Othello project, this class creates a grid world interface.
- *  Includes a 
+ * Based on Grid World Othello project, this class creates a grid world
+ * interface. Includes a
  *
- *  @version May 23, 2015
- *  @author  Period: 2
- *  @author  Assignment: FinalAPCSProj
+ * @version May 20, 2015
+ * @author Period: 2
+ * @author Assignment: FinalAPCSProj
  *
- *  @author  Sources: GWOthello
+ * @author Sources: GWOthello
  */
 public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 {
-    
+
     private CheckerBoard game;
 
-    
     private Semaphore lock;
-
 
     private Location playerLocation;
 
@@ -45,7 +42,10 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 
 
     /**
-     * Constructs an Checker world game The Checker game
+     * Constructs the Checker world game using Gridword GUI. Creates new
+     * Semaphore lock and creates an 8x8 bounded grid. Declares a new game and
+     * sets the player location to null. Updates Checkers and opens a pop up
+     * that takes the IP of the other player.
      */
     public CheckerWorld()
     {
@@ -54,7 +54,6 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         this.game = new CheckerBoard( this );
         lock = new Semaphore( 0 );
         playerLocation = null;
-       
 
         System.setProperty( "info.gridworld.gui.selection", "hide" );
         System.setProperty( "info.gridworld.gui.tooltips", "hide" );
@@ -63,7 +62,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
         updateCheckers();
 
         String inputValue = JOptionPane.showInputDialog( "Please input a value" );
-        System.out.println(inputValue);
+        System.out.println( inputValue );
         if ( inputValue != null )
         {
             game.connect( inputValue );
@@ -76,7 +75,6 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
             }
             catch ( UnknownHostException e )
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -85,23 +83,27 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 
 
     /**
-     * TODO Write your method description here.
+     * Sets initial message on top of the checkerboard to
+     * "Checkers: not connected to other player." then lists your ip address
+     * while the TCP connection has not been established.
+     * 
      * @throws UnknownHostException
+     *             if the TCP connection does not exist
      */
     public void setDefaultString() throws UnknownHostException
     {
         super.setMessage( "Checkers: not connected to other player. Your IP: "
-                        + InetAddress.getLocalHost()
-                            .toString()
-                            .substring( InetAddress.getLocalHost()
-                                .toString()
-                                .indexOf( "/" ) + 1 ) );
+            + InetAddress.getLocalHost()
+                .toString()
+                .substring( InetAddress.getLocalHost().toString().indexOf( "/" ) + 1 ) );
     }
 
 
     /**
      * Checks the toString of checkerboard to determine where to place the
-     * checkers
+     * checkers. Checks to see if checker is black or red. Replicates the
+     * opponents move on local board based on shared array. Lets player know
+     * when turn is over.
      */
     public void updateCheckers()
     {
@@ -209,7 +211,8 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 
 
     /**
-     * Gets the last player location chosen by the human player.
+     * Gets the last player location chosen by the human player. Blocks until
+     * setPlayerLocation runs
      * 
      * @return the last location chosen by the human player
      */
@@ -251,7 +254,7 @@ public class CheckerWorld extends World<Piece> implements CheckerBoardGui
 
     /**
      * 
-     * Main method
+     * Gets and prints out IP address. Sets CheckerWorld to visible.
      * 
      * @param args
      */

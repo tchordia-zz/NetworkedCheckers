@@ -10,6 +10,10 @@ import java.awt.BorderLayout;
  * YOU DO NOT NEED TO EDIT THIS CLASS.
  *
  * $Id: SimpleChat.java
+ * 
+ *  @version May 26, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
  */
 public class SimpleChat
 {

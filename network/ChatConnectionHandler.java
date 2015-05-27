@@ -32,6 +32,11 @@ import java.util.logging.Logger;
  * ChatSender and ChatReceiver classes.
  *
  * $Id: ChatConnectionHandler.java
+ *
+ * @version May 26, 2015
+ * @author Period: 2
+ * @author Assignment: FinalAPCSProj
+ *
  */
 public class ChatConnectionHandler extends Thread
 {
@@ -73,11 +78,11 @@ public class ChatConnectionHandler extends Thread
         receivers = new HashMap();
 
         display = cd;
-//
-//        dThread = new Thread( DiscoveryThread.getInstance() );
-//
-//        dThread.start();
-//         udpConnect();
+        //
+        // dThread = new Thread( DiscoveryThread.getInstance() );
+        //
+        // dThread.start();
+        // udpConnect();
         try
         {
             serverSocket = new ServerSocket( p );
@@ -112,6 +117,13 @@ public class ChatConnectionHandler extends Thread
     }
 
 
+    /**
+     * Find the server using UDP broadcast. Open a random port to send the
+     * package. Sets 255.255.255.255 as default IP. Broadcast the message over
+     * all the network interfaces. Check if response is received. Check if the
+     * message is correct. Closes the port and exits.
+     * 
+     */
     protected void udpConnect()
     {
         // Find the server using UDP broadcast
@@ -315,7 +327,7 @@ public class ChatConnectionHandler extends Thread
         // listen until we quit
         try
         {
-//            udpConnect();
+            // udpConnect();
             while ( true )
             {
                 Socket s = serverSocket.accept();

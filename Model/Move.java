@@ -5,12 +5,10 @@ import java.util.StringTokenizer;
 /**
  *  A class that represents on a Move. Contains a start location, and an end location
  *
- *  @author  Tanmay
  *  @version May 26, 2015
- *  @author  Period: TODO
+ *  @author  Period: 2
  *  @author  Assignment: FinalAPCSProj
  *
- *  @author  Sources: TODO
  */
 public class Move
 {
@@ -169,7 +167,11 @@ public class Move
         return false;
     }
 
-
+/**
+ * 
+ * TODO Write your method description here.
+ * @return
+ */
     public boolean isSimpleMove()
     {
         if ( Math.abs( startCol - endCol ) == 1
@@ -186,7 +188,10 @@ public class Move
     {
         return isLocal;
     }
-
+/**
+ * Checks to see if king is moving backwards.
+ * @return true if backwards move.
+ */
     public boolean isKingMove()
     {
         if ( isRed() )
@@ -204,7 +209,12 @@ public class Move
 
     }
 
-
+/**
+ * Checks instance of Move to see if move was made to the same location.
+ * @param a Object
+ * @return true if red moves
+ * 
+ */
     @Override
     public boolean equals( Object a )
     {
@@ -220,7 +230,10 @@ public class Move
         return false;
 
     }
-    
+    /**
+     * toString method lists move
+     * @return location of initial location and final location
+     */
     @Override
     public String toString()
     {

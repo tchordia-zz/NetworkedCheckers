@@ -22,12 +22,10 @@ import network.SocketName;
  * array of chars, with r representing red and b representing black. '.' is null
  * space and ' ' is empty space. Capital letters are used for kings
  *
- * @author tchordia619
  * @version May 6, 2015
- * @author Period: TODO
+ * @author Period: 2
  * @author Assignment: APCSFinal
  *
- * @author Sources: TODO
  */
 
 public class CheckerBoard implements ChatDisplay
@@ -99,6 +97,10 @@ public class CheckerBoard implements ChatDisplay
 
 
     /**
+     * Creates the connections and sets up a connection handler port. Resets
+     * board and sets red to true. Creates a stack trace of moves and
+     * initializes the pieces.
+     * 
      * @param game
      *            the game instance that created this checkerboard
      */
@@ -110,7 +112,7 @@ public class CheckerBoard implements ChatDisplay
 
         networker = new ChatConnectionHandler( this, port );
         gui = c;
- 
+
         resetBoard();
         isRedTurn = true;
 
@@ -122,6 +124,9 @@ public class CheckerBoard implements ChatDisplay
     }
 
 
+    /**
+     * Resets board to the basic setup upon the start of a new game.
+     */
     private void resetBoard()
     {
         board = new char[initC.length][initC.length];
@@ -136,6 +141,10 @@ public class CheckerBoard implements ChatDisplay
     }
 
 
+    /**
+     * 
+     * @return connModel
+     */
     public DefaultListModel getConnModel()
     {
         return connModel;
@@ -152,6 +161,8 @@ public class CheckerBoard implements ChatDisplay
 
 
     /**
+     * Returns number of red pieces on board. Used to determine winner of a
+     * game.
      * 
      * @return the number of red pieces
      */
@@ -163,6 +174,12 @@ public class CheckerBoard implements ChatDisplay
     }
 
 
+    /**
+     * 
+     * Checks to see if player is playing as red
+     * 
+     * @return true if player is red
+     */
     public boolean isBoardRed()
     {
         return isBoardRed;
@@ -170,6 +187,8 @@ public class CheckerBoard implements ChatDisplay
 
 
     /**
+     * Returns number of black pieces on board. Used to determine winner of a
+     * game.
      * 
      * @return total number of black pieces
      */
@@ -178,8 +197,6 @@ public class CheckerBoard implements ChatDisplay
         return blackPieces.size();
     }
 
-   
-    
 
     /**
      * initialize the piece list with the original game board
@@ -205,7 +222,7 @@ public class CheckerBoard implements ChatDisplay
 
 
     /**
-     * TODO Write your method description here.
+     * Checks location of each piece and checks to see if a player has won.
      * 
      * @return checks if the game is over
      */
@@ -239,7 +256,7 @@ public class CheckerBoard implements ChatDisplay
      * 
      * @param row
      * @param col
-     * @return
+     * @return array list of moves
      */
     private ArrayList<Move> listOneStepMoves( int row, int col )
     {
@@ -280,11 +297,13 @@ public class CheckerBoard implements ChatDisplay
 
     }
 
-/**
- * 
- * checks to see if game has started.
- * @param isBoardRed
- */
+
+    /**
+     * 
+     * checks to see if game has started.
+     * 
+     * @param isBoardRed
+     */
     public void startGame( boolean isBoardRed )
     {
         gameStarted = true;
@@ -294,10 +313,11 @@ public class CheckerBoard implements ChatDisplay
         gui.updateCheckers();
     }
 
-/**
- * 
- * checks if game is over and resets board.
- */
+
+    /**
+     * 
+     * checks if game is over and resets board.
+     */
     public void endGame()
     {
         System.out.println( "inEndGame" );
@@ -316,7 +336,7 @@ public class CheckerBoard implements ChatDisplay
         }
         catch ( UnknownHostException e )
         {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         System.out.println( this );
@@ -474,7 +494,7 @@ public class CheckerBoard implements ChatDisplay
     // * @param mo
     // * @return
     // */
-    // public boolean doMove( MultiMove mo ) // TODO FIX: this method starts
+    // public boolean doMove( MultiMove mo ) //
     // doing
     // // the move while checking the
     // // legality of the move. must check
@@ -496,7 +516,7 @@ public class CheckerBoard implements ChatDisplay
     // }
 
     /**
-     * are there legal jump moves for a certain color
+     * Are there legal jump moves for a certain color
      * 
      * @param isRed
      * @return
@@ -802,7 +822,7 @@ public class CheckerBoard implements ChatDisplay
     // @Override
     // public void createSocket( SocketName name, boolean isRed )
     // {
-    // // TODO Auto-generated method stub
+    // //
     //
     // }
 

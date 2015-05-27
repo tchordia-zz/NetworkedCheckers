@@ -12,12 +12,10 @@ import org.junit.Test;
 /**
  * 
  *
- * @author Tanmay Chordia
  * @version May 18, 2015
  * @author Period: 2
  * @author Assignment: APCSFinal
  *
- * @author Sources: TODO
  */
 public class MJUnit
 {

@@ -4,8 +4,7 @@ import java.util.Scanner;
 /**
  * 
  *  For testing purposes.
- *
- *  @author  Archita
+
  *  @version May 25, 2015
  *  @author  Period: 2
  *  @author  Assignment: FinalAPCSProj

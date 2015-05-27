@@ -6,6 +6,10 @@ package network;
  * YOU DO NOT NEED TO EDIT THIS CLASS.
  *
  * $Id: SocketName.java
+ * 
+ *  @version May 26, 2015
+ *  @author  Period: 2
+ *  @author  Assignment: FinalAPCSProj
  */
 public class SocketName implements Comparable
 {

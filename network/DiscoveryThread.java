@@ -5,7 +5,19 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * 
+ *  TODO Write a one-sentence summary of your class here.
+ *  TODO Follow it with additional details about its purpose, what abstraction
+ *  it represents, and how to use it.
+ *
+ *  @author  ajain
+ *  @version May 26, 2015
+ *  @author  Period: TODO
+ *  @author  Assignment: FinalAPCSProj
+ *
+ *  @author  Sources: TODO
+ */
 public class DiscoveryThread implements Runnable
 {
 
